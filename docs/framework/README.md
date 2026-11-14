@@ -8,6 +8,16 @@
 
 n8n is technically a workflow automation platform. Calling it a "language" is our design analogy, not a claim that n8n is a general-purpose programming language or a Next.js replacement.
 
+## Human-facing interface: one level above n8n nodes
+
+The default view is not code, not the agent's tool transcript and not the complete technical n8n canvas. It is a **behavior-first system map**: human-readable boxes with icons, connections, decisions, outputs, failure paths and truthful evidence-backed statuses.
+
+Our intended users **want to understand, but do not have time to learn** the underlying programming and integration details. They should understand what the system does, what can go wrong and what they are approving. Technical depth must remain accessible through progressive disclosure when needed.
+
+**Exactly the context required for the next decision, no more and no less**—but never hide a significant risk or unknown.
+
+This is a design objective, not a currently implemented feature. Read [2027 spec-driven product development](spec-driven-product-development.md) and [behavior-first interface contract](behavior-first-interface.md).
+
 ## Product definition
 
 A **system** is a set of n8n workflows plus their entry points, durable state, external capabilities, permissions, and operational rules. A single workflow JSON file may be one component of a larger system. The framework builds and manages systems, not merely individual automations.
@@ -51,12 +61,14 @@ The human designs **what the system should do**. Agents do implementation work; 
 
 ## Reading order
 
-1. [System model](system-model.md) - concepts, workflow grammar, system specification.
-2. [Interfaces and external capabilities](interfaces-and-capabilities.md) - chat, API, MCP, HTML, storage and agent providers.
-3. [Identity, runs and tenant state](state-and-tenancy.md) - safely run one system for many clients.
-4. [ADR-0002](../decisions/0002-n8n-native-systems-framework.md) - strategic decision and alternatives.
-5. [Reference architecture](../architecture/system-overview.md) - development, staging and independent review.
-6. [JSON contract](../contracts/workflow-json.md) - what a valid workflow artifact actually guarantees.
+1. [Spec-driven product development](spec-driven-product-development.md) - goals, human abstraction levels, and spec-to-release lifecycle.
+2. [Behavior-first interface](behavior-first-interface.md) - boxes, evidence, status, progressive disclosure and fidelity tests.
+3. [System model](system-model.md) - concepts, workflow grammar, system specification.
+4. [Interfaces and external capabilities](interfaces-and-capabilities.md) - chat, API, MCP, HTML, storage and agent providers.
+5. [Identity, runs and tenant state](state-and-tenancy.md) - safely run one system for many clients.
+6. [ADR-0002](../decisions/0002-n8n-native-systems-framework.md) - strategic decision and alternatives.
+7. [Reference architecture](../architecture/system-overview.md) - development, staging and independent review.
+8. [JSON contract](../contracts/workflow-json.md) - what a valid workflow artifact actually guarantees.
 
 ## Important boundaries
 

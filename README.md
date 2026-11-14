@@ -4,6 +4,46 @@
 
 > n8n is technically a workflow automation platform. The language analogy describes our approach; this repository is a research/design baseline, not an implemented application framework.
 
+## The 2027 product-development thesis
+
+**Build from a specification. Let agents handle implementation. Let humans understand the actual product through a visual map of its behavior.**
+
+Our target user **wants to understand, but does not have time to learn all the underlying technologies**. They should see what triggers a system, what it decides, what it does, and what happens when something fails—not code diffs or raw agent tool transcripts by default.
+
+| Abstraction | Human-facing representation |
+|---|---|
+| 1. Code | Files, functions and implementation diffs |
+| 2. Agent conversations | Plans, instructions, tool calls and summaries |
+| **3. Behavior-first UI (our default)** | **Business-level boxes, connections, decisions, outcomes and truthful status** |
+
+These are complementary viewing levels, not a claim that technical detail becomes unnecessary. The default should show **exactly the context needed for the next decision, no more and no less**; deeper evidence remains available to authorized users.
+
+~~~mermaid
+flowchart TD
+  SPEC["Human describes desired behavior"] --> AGENTS["Agents design, build and test"]
+  AGENTS --> N8N["Versioned n8n workflows"]
+  N8N --> MAP["Human sees behavior map"]
+  N8N --> EVIDENCE["Runtime evidence and release status"]
+  EVIDENCE --> MAP
+  MAP -->|"Request improvement"| SPEC
+~~~
+
+**Example of what a customer-facing view might show** (illustrative; not a deployed system):
+
+~~~mermaid
+flowchart LR
+  MSG["Message received"] --> ID["Identify customer"]
+  ID -->|authorized| DATA["Retrieve information"]
+  ID -->|denied| DENY["Explain access restriction"]
+  DATA --> AI["Resolve request"]
+  AI -->|resolved| REPLY["Send response"]
+  AI -->|needs help| ESC["Escalate to human"]
+~~~
+
+Each box must be linked to the **real approved system version**, including its workflows, tests, and runtime evidence. A static agent-invented diagram is not acceptable evidence of implementation.
+
+Read [Spec-driven product development](docs/framework/spec-driven-product-development.md), [Behavior-first visual interface](docs/framework/behavior-first-interface.md), and [ADR-0003](docs/decisions/0003-behavior-first-visual-abstraction.md).
+
 ## Our system-first model
 
 ```mermaid
@@ -35,16 +75,16 @@ An auditable documentation and research baseline. It has early engineering *prop
 
 ## Start here
 
-1. [n8n-native framework](docs/framework/README.md): system model, interface boundaries, tenancy and state.
-2. [Project charter](docs/vision.md): outcomes, product boundaries, non-goals.
-2. [System architecture](docs/architecture/system-overview.md): components, trust and execution boundaries.
-3. [Research methodology](docs/research/methodology.md): evidence levels and reproducible investigation.
-4. [Source registry](docs/research/source-registry.md): prioritized primary and secondary sources.
-5. [n8n internals](docs/research/n8n-2.47.7-internals.md): first verified source findings.
-6. [JSON contract](docs/contracts/workflow-json.md): the difference between structural, semantic, runtime and release validity.
-7. [Engineering rulebook](docs/standards/architecture.md): decision criteria, not arbitrary node-count rules.
-8. [Quality gates](docs/testing/quality-gates.md) and [roadmap](docs/roadmap.md).
-9. [AGENTS.md](AGENTS.md): operating rules for AI contributors.
+1. [Spec-driven product development](docs/framework/spec-driven-product-development.md): the 2027 thesis, user audience, and creation lifecycle.
+2. [Behavior-first interface](docs/framework/behavior-first-interface.md): visual boxes, truthful states, progressive disclosure and fidelity tests.
+3. [n8n-native framework](docs/framework/README.md): system model, interface boundaries, tenancy and state.
+4. [Project charter](docs/vision.md): outcomes, product boundaries and non-goals.
+5. [System architecture](docs/architecture/system-overview.md): components, trust and execution boundaries.
+6. [Research methodology](docs/research/methodology.md) and [source registry](docs/research/source-registry.md).
+7. [n8n internals](docs/research/n8n-2.47.7-internals.md) and [JSON contract](docs/contracts/workflow-json.md).
+8. [Engineering rulebook](docs/standards/architecture.md): evidence-based design decisions.
+9. [Quality gates](docs/testing/quality-gates.md) and [roadmap](docs/roadmap.md).
+10. [AGENTS.md](AGENTS.md): operating rules for AI contributors.
 
 ## Directory map
 
@@ -52,7 +92,7 @@ An auditable documentation and research baseline. It has early engineering *prop
 n8n-engineering-system/
   AGENTS.md                       Agent contribution rules
   docs/
-    framework/                    System model, interfaces, state, tenancy and capabilities
+    framework/                    Spec-driven development, visual UI, system model, interfaces and tenancy
     architecture/                 Agent/platform architecture
     contracts/                    Output and workflow JSON contracts
     research/                     n8n internals, provenance, tooling and methodology
@@ -85,6 +125,7 @@ n8n-engineering-system/
 | Deliverable | State |
 |---|---|
 | Repo skeleton and architecture plan | Documented |
+| Spec-driven development and behavior-first UI contract | Documented concept; no working UI or projection engine |
 | Version-pinned source and source registry | Documented |
 | Initial workflow JSON semantics | Source-verified subset |
 | Full node schemas and integration catalog | Not built |

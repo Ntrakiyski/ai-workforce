@@ -7,6 +7,18 @@
 
 Make n8n system construction a **repeatable, inspectable, testable engineering process** rather than a prompt that improvises application code. Systems encompass workflows, entry interfaces, state, authorization and integration contracts. Constrain agents with a versioned model of n8n internals, reusable composition patterns, integration-specific instructions, and machine-executed quality gates.
 
+## 2027 product-development thesis
+
+**People who want to understand do not necessarily want to learn how to program.** Our purpose is to give them enough understanding to direct and govern the systems they build, without forcing them through code or raw agent tool logs.
+
+The human describes the **product specification**: desired business outcome, actors, decisions, data, side effects, failure behavior and acceptance criteria. AI agents assemble, test and review the implementation. The default human interface shows the **actual system behavior** as named boxes, icons, transitions and truthful statuses, backed by versioned n8n workflows and runtime evidence.
+
+A useful framing is three complementary levels of inspection: **source code**, **agent conversations**, and **business behavior map**. The behavior map becomes the default; technical details remain available to authorized users who need them.
+
+**Guiding UX principle:** exactly the context needed for the next safe decision, no more and no less. This cannot justify hiding security-sensitive actions, exceptions, uncertainty or failed execution.
+
+This is a **strategic hypothesis and proposed UX**, not an implemented interface or a validated claim about how all users prefer to work. See [spec-driven product development](framework/spec-driven-product-development.md), [behavior-first interface](framework/behavior-first-interface.md) and [ADR-0003](decisions/0003-behavior-first-visual-abstraction.md).
+
 ## User problem
 
 An AI agent can generate hundreds of lines of opaque backend code. Non-code-reading users cannot confidently verify that implementation. An n8n-first system offers a more legible flow graph, but a visible graph is not sufficient proof of correctness. We need visual inspection plus source-grounded constraints, runtime evidence and independent review.
@@ -27,6 +39,8 @@ An AI agent can generate hundreds of lines of opaque backend code. Non-code-read
 4. Static checks catch malformed graphs/configuration before import; staging tests verify real execution behavior using controlled or sandbox resources.
 5. A client can request an improvement by chat. A development agent builds it, an independent reviewer tests it, and an authorized release process decides whether to promote it.
 6. Knowledge is reusable across clients and versions rather than generated from scratch on every task.
+7. The default user view explains **what the deployed system does**, with behavioral maps linked to actual workflow versions, test evidence and operational status.
+8. A client can request changes through plain-language behavior, and understand the **before/after system impact** without reviewing code, while still having authorized access to underlying evidence.
 
 ## Deliverable contract
 
@@ -34,6 +48,7 @@ For each production change, aim to supply:
 
 - `workflow.json` or a collection of related importable workflow definitions;
 - `architecture.md` and a graph (Mermaid or exported n8n diagram);
+- a versioned **behavior-map projection** linking user-facing steps to approved workflow artifacts (future capability);
 - `validation.json` with evidence per gate;
 - `tests.json` with fixtures and actual runtime outputs/statuses;
 - `release-manifest.json` with n8n version/commit, credentials mapping, external dependencies, rollback pointer and approval state.
@@ -54,6 +69,9 @@ For each production change, aim to supply:
 - Incidents per production deployment and time to safe rollback.
 - Fraction of changes generated from verified reusable patterns.
 - Human review time and source-evidence completeness.
+- Behavioral map comprehension and user task-completion accuracy.
+- Fidelity between visual boxes/edges, deployed workflows and staging/runtime evidence.
+- Rate of false-positive visual statuses (target: zero).
 
 ## Principles
 

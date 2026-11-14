@@ -23,6 +23,26 @@ flowchart TD
 
 Mermaid is an architecture **proposal**; no parts of this pipeline are deployed by this repository.
 
+## Human-facing behavioral projection (planned)
+
+The framework's end-user interface is a **plain-language map of system behavior**, not the raw n8n graph. A visual box can represent a reusable capability spanning many workflow nodes; it needs stable mapping references to the approved system manifest and deployed workflow revisions.
+
+~~~mermaid
+flowchart TD
+  SPEC["Versioned product specification"] --> MANIFEST["System manifest and capability contracts"]
+  MANIFEST --> WFS["n8n workflows and external services"]
+  WFS --> TESTS["Staging execution and runtime evidence"]
+  MANIFEST --> PROJECT["Behavior-map projection"]
+  WFS --> PROJECT
+  TESTS --> PROJECT
+  PROJECT --> VIEW["User sees business steps, decisions, effects and status"]
+  VIEW -->|"Change desired behavior"| SPEC
+~~~
+
+**Fidelity requirement:** projection links must be checked against real workflow and release revisions. An unmapped critical edge, failed test or missing status evidence must not be rendered as healthy or complete. The default view must be understandable to non-programmers while allowing authorized drill-down into the technical details.
+
+See [Behavior-first interface](../framework/behavior-first-interface.md) and [ADR-0003](../decisions/0003-behavior-first-visual-abstraction.md). This layer is **proposed and not implemented**.
+
 ## System components
 
 | Component | Responsibility | Trust boundary |

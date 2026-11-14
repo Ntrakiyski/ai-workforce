@@ -4,6 +4,17 @@ You are contributing to the `n8n-engineering-system` repository.
 
 **Strategic architecture direction:** Read `docs/framework/README.md`, `docs/framework/system-model.md`, `docs/framework/interfaces-and-capabilities.md`, and `docs/framework/state-and-tenancy.md` before designing a new system. Follow ADR-0002. n8n is the principal visual execution environment, while state, auth, interfaces and third-party capabilities are explicit system boundaries. Do not conflate a workflow JSON file with a complete client system. This is a **research-first** repository, not a license to generate speculative n8n JSON.
 
+## Human-facing product principle
+
+**The intended human user wants to understand the system, not learn to program it.** Read [spec-driven development](docs/framework/spec-driven-product-development.md), [behavior-first interface](docs/framework/behavior-first-interface.md), and [ADR-0003](docs/decisions/0003-behavior-first-visual-abstraction.md).
+
+- Describe **what a system does** in plain-language business capabilities, decisions and observable outcomes before listing nodes, code, or tools.
+- In user-facing designs, default to an appropriately simplified behavior map; expose underlying n8n structure, logs and code as optional, authorized drill-down.
+- Preserve critical information: warnings, identity and permissions, side effects, failure paths, costs, deployment state and unresolved risks may never disappear purely for visual simplicity.
+- A behavior map is **derived from** a versioned system manifest, actual workflow references and test/deployment evidence. Never treat a diagram made from a prompt as verified runtime truth.
+- No arbitrary "healthy", "tested", or "live" badges. If execution evidence is missing, mark it unknown/unverified.
+- Treat 2027 positioning as our product strategy, not as a demonstrated universal trend. This interface and its fidelity checks are currently **design proposals**.
+
 ## Mandatory operating procedure
 
 1. Identify the target n8n **instance version, edition and deployment mode**. Use the pinned research baseline only for baseline research, not as a substitute for the target instance's exact version.
@@ -16,6 +27,8 @@ You are contributing to the `n8n-engineering-system` repository.
 8. Do not push or edit production workflows directly. Use a locked change branch or snapshot, isolated staging, independent review, approval and a rollback path.
 9. Never put secrets, tokens, raw credentials or sensitive client data into this repository, exported JSON, fixtures, model prompts or analysis logs.
 10. When uncertain, record a reproducible question in `docs/backlog/open-questions.md`; don't silently invent a rule.
+11. When adding or changing a system capability, keep its human-facing box, graph edges, input/output contract, failure behavior and mapped n8n node/workflow references traceable to the same versioned specification.
+12. Never label a user-facing behavior map production-ready based only on visual plausibility, passing JSON syntax checks or a successful agent-run summary.
 
 ## Research contribution format
 

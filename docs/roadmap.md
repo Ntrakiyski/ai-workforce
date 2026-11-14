@@ -12,6 +12,19 @@ All milestones below are future work. There are no implied deadlines.
 - [x] Define quality gates and open research questions.
 - [ ] Validate any workflow against a running n8n instance.
 
+## Product direction - Specification-to-behavior interface (planned)
+
+- [x] Document the 2027 spec-driven product-development thesis, intended users and design goals.
+- [x] Define a behavior-first visual interface contract with evidence-linked statuses and three inspection levels.
+- [ ] Create a schema for a product specification and versioned system manifest.
+- [ ] Design capability-to-workflow/node mapping and graph projection.
+- [ ] Validate visual fidelity against deployed n8n workflows and staging tests.
+- [ ] Prototype the behavior map on a multi-interface assistant with error, denial and escalation paths.
+- [ ] Test user comprehension, fidelity and usability with representative non-programmer users.
+- [ ] Implement before/after behavior review, human approval and truthful production-state badges.
+
+**Exit criteria:** a non-programmer can explain what a real deployed system does and what changed, and every presented box, edge and status traces to the approved system manifest and verified workflow/runtime evidence. No UI implementation is claimed at this stage.
+
 ## M1 - Exact workflow contract
 
 - [ ] Extract all relevant workflow API/create/import/publish schemas from n8n `2.47.7`.
