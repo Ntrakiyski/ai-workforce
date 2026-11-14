@@ -15,6 +15,22 @@ All milestones below are future work. There are no implied deadlines. The [execu
 
 
 
+## Adaptive execution pilot — Hermes on BoxLite (proposal)
+
+Architecture: [Hermes task worker](architecture/adaptive-execution-hermes-boxlite.md) · [ADR-0006](decisions/0006-hermes-adaptive-agent-runtime.md) · [production control checklist](standards/agent-production-controls.md).
+
+- [x] Verify vendor Hermes Gateway startup, authenticated task API, secret separation and wake behavior from official documentation.
+- [x] Define three agent profiles (Research, Engineering, Data) and the proposed task/result JSON schemas.
+- [x] Extract six production safeguards from the shared n8n training transcript.
+- [ ] Implement a restricted n8n Hermes task adapter with version-pinned model/image profile, scope, budgets and trusted actor/tenant mapping.
+- [ ] Verify task Gateway credentials are independent from the BoxLite Cloud management API key.
+- [ ] Execute one synthetic agent task, capture a real file artifact, independently validate its content, and preserve run evidence.
+- [ ] Test timeout/unknown outcome, 503 wake, malformed output, repeated requests, unauthorized data access, refusal, and Box cleanup.
+- [ ] Pilot promotion of a verified discovery into one reusable n8n sub-workflow; do not publish directly from an agent run.
+- [ ] Benchmark cost and latency of one warm Box versus request-triggered wake, without committing to three permanent VMs.
+
+**Not implemented:** no BoxLite/Hermes integration has been provisioned by the project; the existing GitHub Actions CI remains in place. The BoxLite account-management key previously exposed in the conversation must be revoked/rotated before any future provisioning.
+
 ## Tooling reuse evaluation (four candidates)
 
 **[Detailed pilot plan](roadmap/tooling-integration-pilots.md)** · **[Source-backed shortlist](research/tooling-reuse-shortlist-2026-11-15.md)**.

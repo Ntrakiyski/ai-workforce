@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Ntrakiyski/n8n-dev/blob/main/docs/contracts/agent-task.schema.json",
+  "title": "Adaptive Agent Task (proposed framework contract; not Hermes native)",
+  "description": "Trusted n8n/broker creates the envelope after authentication and authorization. This schema validates shape only, not tool permissions, business rules, or budgets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "system_id",
+    "actor_id",
+    "tenant_id",
+    "profile",
+    "objective",
+    "input_refs",
+    "allowed_capabilities",
+    "limits",
+    "side_effect_policy",
+    "acceptance",
+    "output_ref_prefix"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "system_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "actor_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "correlation_id": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "profile": {
+      "enum": [
+        "research",
+        "engineering",
+        "data"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+    "input_refs": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      }
+    },
+    "allowed_capabilities": {
+      "type": "array",
+      "maxItems": 50,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_iterations",
+        "wall_time_seconds",
+        "max_cost_usd"
+      ],
+      "properties": {
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "wall_time_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "max_cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      }
+    },
+    "side_effect_policy": {
+      "enum": [
+        "no_external_writes",
+        "approved_capabilities_only",
+        "requires_human_approval"
+      ]
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_ref",
+        "checks"
+      ],
+      "properties": {
+        "schema_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "checks": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    "output_ref_prefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

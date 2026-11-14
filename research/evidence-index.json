@@ -411,6 +411,39 @@
       "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
       "checked_at": "2026-11-15",
       "notes": "Community guide version verified via https://github.com/Subworkflow-AI/unofficial-n8n-workflow-sdk-docs/blob/128b29226f27ba31e8541587fe8a49b58f71a413/package.json . Do not import guide as version-matched SDK spec."
+    },
+    {
+      "id": "E-042",
+      "claim": "BoxLite official Hermes Cloud guide documents a digest-pinned Hermes image, saved gateway startup command, host-scoped model credential, separate Gateway token, authenticated health and chat-completions endpoint on port 8642.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://github.com/boxlite-ai/documentation/blob/main/cloud/agent-in-box/hermes.mdx",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-15",
+      "notes": "Source read directly. No Hermes instance was deployed/tested by project."
+    },
+    {
+      "id": "E-043",
+      "claim": "BoxLite Cloud lifecycle documentation allows request-triggered wake of saved HTTP services and warns that internal guest jobs alone do not prevent default auto-stop.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://github.com/boxlite-ai/documentation/blob/main/cloud/box-lifecycle.mdx",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-15",
+      "notes": "Source read; integrate 503 BOX_STARTING retry and unknown timeout handling explicitly."
+    },
+    {
+      "id": "E-044",
+      "claim": "User-supplied transcript of the n8n production-agent video presents six production safeguards: modularity, structured response validation, capped iterations/cost, scoped permissions, traces/alerts and human approval.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "video_transcript",
+      "url": "https://www.youtube.com/watch?v=RvOErUwZq1g",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-15",
+      "notes": "Summarized supplied transcript, not independent certification of current n8n/Hermes product controls. See docs/standards/agent-production-controls.md."
     }
   ]
 }

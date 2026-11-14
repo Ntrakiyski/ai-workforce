@@ -46,6 +46,17 @@ Read [the source-level findings](docs/research/tooling-source-audit-2026-11-15.m
 - Treat `n8nac push` as potentially **live publishing** for published workflows. Never give an agent unapproved production push access. `push --verify` is not a dry run; use explicit reviewed dry-run promotion before any staged writes.
 - The `.github/workflows/n8n-check-smoke.yml` synthetic test has **verified limited runtime evidence**: [run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). Read [the evidence report](docs/research/pilots/n8n-check-verified-run-2026-11-15.md). Do not extend this narrow output-regression result to other n8n nodes, providers, permissions or production releases without separate tests.
 
+## Adaptive agent execution — proposed Hermes worker
+
+Read [Adaptive execution architecture](docs/architecture/adaptive-execution-hermes-boxlite.md), [ADR-0006](docs/decisions/0006-hermes-adaptive-agent-runtime.md), and the [six production controls](docs/standards/agent-production-controls.md) before designing agent tasks.
+
+- **Default to trusted, versioned n8n workflows** for known operations. Adaptive delegation is for tasks that genuinely require exploration or isolated code/tool execution.
+- Hermes in BoxLite is an **optional external runtime**, not a replacement for n8n or GitHub Actions. Its official Gateway uses an authenticated chat-completions endpoint; our proposed task JSON is an **adapter contract**, not the vendor API.
+- Do not supply a BoxLite Cloud management API key to Hermes, n8n's general AI tools, repo files, or prompts. Gateway caller auth and BoxLite control-plane permissions must remain separate.
+- Use [agent-task.schema.json](docs/contracts/agent-task.schema.json) and [agent-task-result.schema.json](docs/contracts/agent-task-result.schema.json) for proposed contracts. n8n must derive identity/tenant from authenticated context, enforce budgets and permissions outside the model, validate returned artifacts independently, and bind approval to the exact intended action.
+- Do not mark a BoxLite/Hermes integration as deployed or verified. The provider walkthrough has been source-read, but no cloud instance was provisioned or tested by this project.
+- Treat the owner's supplied [production-agent video](https://www.youtube.com/watch?v=RvOErUwZq1g) as design input about modularity, structured output, bounded loops/cost, scoped data, tracing and human review. Verify concrete UI/feature support against the pinned n8n release rather than assuming the video guarantees it.
+
 ## Mandatory operating procedure
 
 1. Identify the target n8n **instance version, edition and deployment mode**. Use the pinned research baseline only for baseline research, not as a substitute for the target instance's exact version.

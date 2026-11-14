@@ -12,6 +12,28 @@ The [executive decision record](docs/strategy/executive-decisions-2026-11-15.md)
 
 **Next milestone:** one version-pinned SDK-first reference system, generated from a product spec, tested on isolated n8n staging, with its visual behavior map derived from real workflow artifacts. **Not built yet.** See [roadmap](docs/roadmap.md).
 
+## Adaptive execution: Hermes agent inside BoxLite
+
+**Product direction (ADR-0006):** use **tested n8n sub-workflows for known business operations**, and evaluate **Hermes in BoxLite Cloud microVMs for unfamiliar, exploratory agent tasks**. n8n retains authenticated tenancy, business-data permissions, policy, approval, independent validation and audited side effects.
+
+~~~mermaid
+flowchart LR
+  REQ["Human requests outcome"] --> N8N["n8n verifies + routes"]
+  N8N -->|Known task| FLOW["Trusted versioned n8n capability"]
+  N8N -->|Unfamiliar task| HERMES["Hermes Gateway in BoxLite microVM"]
+  HERMES --> OUT["Proposed artifacts + evidence"]
+  FLOW --> CHECK["n8n checks contract + authorization"]
+  OUT --> CHECK
+  CHECK --> DONE["Verified result + run trace"]
+~~~
+
+- [Adaptive execution architecture](docs/architecture/adaptive-execution-hermes-boxlite.md)
+- [Six production agent controls from shared video](docs/standards/agent-production-controls.md)
+- [ADR-0006: Hermes-on-BoxLite candidate worker](docs/decisions/0006-hermes-adaptive-agent-runtime.md)
+- [Proposed agent-task schema](docs/contracts/agent-task.schema.json) and [result schema](docs/contracts/agent-task-result.schema.json)
+
+**Status:** Design only; no Hermes Cloud agent, BoxLite task broker, or n8n-to-Gateway bridge is deployed/tested by this repository. This **does not** change the GitHub Actions testing decision. A BoxLite Cloud management key was previously shared in conversation and must be rotated before future use.
+
 ## The 2027 product-development thesis
 
 **Build from a specification. Let agents handle implementation. Let humans understand the actual product through a visual map of its behavior.**

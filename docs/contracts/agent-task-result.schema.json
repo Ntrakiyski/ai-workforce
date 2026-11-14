@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Ntrakiyski/n8n-dev/blob/main/docs/contracts/agent-task-result.schema.json",
+  "title": "Adaptive Agent Task Proposal (not an approval or success attestation)",
+  "description": "Hermes/broker result before trusted n8n validation. A model-reported success does not prove test completion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "status",
+    "artifact_refs",
+    "evidence_refs",
+    "limitations",
+    "agent_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "status": {
+      "enum": [
+        "proposed_success",
+        "needs_review",
+        "failed",
+        "uncertain"
+      ]
+    },
+    "artifact_refs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reported_tests": {
+      "type": "array",
+      "maxItems": 60,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not_run"
+            ]
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "string"
+      }
+    },
+    "agent_summary": {
+      "type": "string",
+      "maxLength": 5000
+    },
+    "model_id": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "image_digest": {
+      "type": "string",
+      "maxLength": 200
+    }
+  }
+}

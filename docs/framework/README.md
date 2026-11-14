@@ -18,6 +18,12 @@ Our intended users **want to understand, but do not have time to learn** the und
 
 This is a design objective, not a currently implemented feature. Read [2027 spec-driven product development](spec-driven-product-development.md) and [behavior-first interface contract](behavior-first-interface.md).
 
+## Adaptive execution with Hermes on BoxLite (proposed)
+
+Known business processes use a tested n8n workflow. Unknown or exploratory tasks may be assigned to a **bounded Hermes agent inside an isolated BoxLite microVM**, using our task schema, versioned profiles, separate task/control credentials and independent result validation. n8n remains the business policy and side-effect authority; model tool calls alone do not grant permissions.
+
+Read [adaptive execution architecture](../architecture/adaptive-execution-hermes-boxlite.md), [production agent controls](../standards/agent-production-controls.md) and [ADR-0006](../decisions/0006-hermes-adaptive-agent-runtime.md). This is not implemented and does not replace GitHub Actions for n8n testing.
+
 ## Product definition
 
 A **system** is a set of n8n workflows plus their entry points, durable state, external capabilities, permissions, and operational rules. A single workflow JSON file may be one component of a larger system. The framework builds and manages systems, not merely individual automations.

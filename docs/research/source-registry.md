@@ -86,3 +86,14 @@ See [the experimental integration plan](../roadmap/tooling-integration-pilots.md
 **First runtime proof:** [n8n-check 2.47.7 positive/negative CI report](pilots/n8n-check-verified-run-2026-11-15.md), [run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). Both examples executed successfully in n8n; the incorrect-output mutation failed 2 JUnit checks while the healthy control passed all 5. This is narrow test evidence, not a general certification.
 
 **SDK version drift note:** n8n 2.47.7 source at pinned commit bundles `@n8n/workflow-sdk` version **0.40.2**; [Subworkflow's unofficial SDK guide](https://github.com/Subworkflow-AI/unofficial-n8n-workflow-sdk-docs) documents version **0.27.2**. Use the guide as version-specific research and retest APIs against pinned upstream, not as current authority.
+
+## Adaptive agents and BoxLite Hermes Gateway — 2026-11-15
+
+| Priority | Source | Verified research use | Limitation |
+|---|---|---|---|
+| P0 | [BoxLite Hermes Cloud example](https://github.com/boxlite-ai/documentation/blob/main/cloud/agent-in-box/hermes.mdx) | Digest-pinned Hermes image, Gateway on 8642, authenticated `/health` and `/v1/chat/completions`, model secret vs caller token, optional request-triggered wake | Official docs were read; no Box was provisioned or called |
+| P0 | [BoxLite agent-in-box overview](https://github.com/boxlite-ai/documentation/blob/main/cloud/agent-in-box/index.mdx) | Host-scoped model secrets, isolate agent filesystem and network, supported agent examples | Secret substitution host restrictions are not equivalent to complete egress policy |
+| P0 | [BoxLite lifecycle](https://github.com/boxlite-ai/documentation/blob/main/cloud/box-lifecycle.mdx) | Default auto-stop, wake on request, stopped-box resume behavior | Idle-stop can terminate an unattended run; per-request task reliability needs separate design |
+| P1 | [Video: AI Agent Best Practices for Production (n8n)](https://www.youtube.com/watch?v=RvOErUwZq1g) | Project-owner-supplied transcript describes six production safeguards: decomposition, output validation, bounds, permissions, traces and approvals | Training content is not evidence that shown controls are available on the pinned target version |
+
+Engineering synthesis: [Hermes adaptive runtime](../architecture/adaptive-execution-hermes-boxlite.md), [production agent standard](../standards/agent-production-controls.md), [ADR-0006](../decisions/0006-hermes-adaptive-agent-runtime.md). All runtime and integration operations remain untested.
