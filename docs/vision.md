@@ -2,11 +2,22 @@
 
 ## Mission
 
-Make n8n workflow construction a **repeatable, inspectable, testable engineering process** rather than a prompt that improvises application code. Constrain agents with a versioned model of n8n internals, reusable composition patterns, integration-specific instructions, and machine-executed quality gates.
+**Project direction (ADR-0002):** Build reusable systems using n8n as the principal visual execution language. Chat apps, API, MCP and simple HTML are interchangeable interface layers; external agents and storage providers extend the capabilities without replacing n8n as the organizing center. See [framework overview](framework/README.md).
+
+
+Make n8n system construction a **repeatable, inspectable, testable engineering process** rather than a prompt that improvises application code. Systems encompass workflows, entry interfaces, state, authorization and integration contracts. Constrain agents with a versioned model of n8n internals, reusable composition patterns, integration-specific instructions, and machine-executed quality gates.
 
 ## User problem
 
 An AI agent can generate hundreds of lines of opaque backend code. Non-code-reading users cannot confidently verify that implementation. An n8n-first system offers a more legible flow graph, but a visible graph is not sufficient proof of correctness. We need visual inspection plus source-grounded constraints, runtime evidence and independent review.
+
+## System-first principles
+
+- Business outcomes first; n8n workflows express the operational behavior.
+- Core capabilities are reusable across Telegram, WhatsApp, HTTP, MCP and future interfaces.
+- A shared workflow can serve many tenants only with verified identity, enforced authorization and tested state isolation.
+- Data Tables, PostgreSQL, Redis and external providers are chosen for their semantics rather than because the framework must provide everything itself.
+- A client-facing chat editor that modifies workflow configuration is license-sensitive and must not be shipped without a confirmed compliant arrangement.
 
 ## Product outcomes
 

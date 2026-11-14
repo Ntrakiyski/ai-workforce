@@ -1,6 +1,8 @@
 # Instructions for Coding and Research Agents
 
-You are contributing to the `n8n-engineering-system` repository. This is a **research-first** repository, not a license to generate speculative n8n JSON.
+You are contributing to the `n8n-engineering-system` repository.
+
+**Strategic architecture direction:** Read `docs/framework/README.md`, `docs/framework/system-model.md`, `docs/framework/interfaces-and-capabilities.md`, and `docs/framework/state-and-tenancy.md` before designing a new system. Follow ADR-0002. n8n is the principal visual execution environment, while state, auth, interfaces and third-party capabilities are explicit system boundaries. Do not conflate a workflow JSON file with a complete client system. This is a **research-first** repository, not a license to generate speculative n8n JSON.
 
 ## Mandatory operating procedure
 

@@ -1,12 +1,31 @@
 # n8n Engineering System
 
+**An n8n-native systems framework:** treat n8n as the visual language of application behavior, with agents assembling reusable workflows, integrations, state, and interfaces rather than starting each system from conventional application code.
+
+> n8n is technically a workflow automation platform. The language analogy describes our approach; this repository is a research/design baseline, not an implemented application framework.
+
+## Our system-first model
+
+```mermaid
+flowchart LR
+  IN["Chat / HTTP API / MCP / HTML"] --> G["Authenticated entry adapters"]
+  G --> CORE["Reusable n8n system workflows"]
+  CORE <--> STATE[("Tenant-aware storage")]
+  CORE --> CAP["External APIs, tools and agents"]
+  CORE --> OUT["Channel-specific response"]
+  CORE --> CHECK["Traces, validation and review"]
+```
+
+The **system** is more than a workflow JSON: it includes identity, inputs/outputs, reusable capabilities, durable state, interface adapters, tests and a controlled release. Read the [framework overview](docs/framework/README.md) and the [system model](docs/framework/system-model.md). The [change in direction is recorded in ADR-0002](docs/decisions/0002-n8n-native-systems-framework.md).
+
+
 > **Status:** Documentation baseline / research in progress. Not a production-ready n8n workflow generator or validated skill.
 >
 > **Research baseline:** n8n `2.47.7` (release 2026-11-13), commit [`d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063`](https://github.com/n8n-io/n8n/commit/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063), checked 2026-11-14. Target deployment versions must be checked independently.
 
 ## Purpose
 
-Build a source-grounded, version-aware engineering knowledge system that enables AI agents to **design, generate, explain, validate, test, review, and improve n8n workflows** without rediscovering n8n behavior on every client project.
+Build a source-grounded, version-aware **n8n-native systems framework** that enables agents to **design, assemble, explain, validate, test, review, and improve entire systems of workflows** without rediscovering n8n behavior on every client project. The original workflow JSON effort remains a core capability within the broader system model.
 
 The intended product output is more than one JSON file: validated **workflow JSON + visual architecture + test evidence + release manifest**. n8n is the inspectable execution layer; MCP enables discovery/operations; research and engineering standards constrain generation; independent testing gates changes before release.
 
@@ -16,7 +35,8 @@ An auditable documentation and research baseline. It has early engineering *prop
 
 ## Start here
 
-1. [Project charter](docs/vision.md): outcomes, product boundaries, non-goals.
+1. [n8n-native framework](docs/framework/README.md): system model, interface boundaries, tenancy and state.
+2. [Project charter](docs/vision.md): outcomes, product boundaries, non-goals.
 2. [System architecture](docs/architecture/system-overview.md): components, trust and execution boundaries.
 3. [Research methodology](docs/research/methodology.md): evidence levels and reproducible investigation.
 4. [Source registry](docs/research/source-registry.md): prioritized primary and secondary sources.
@@ -32,6 +52,7 @@ An auditable documentation and research baseline. It has early engineering *prop
 n8n-engineering-system/
   AGENTS.md                       Agent contribution rules
   docs/
+    framework/                    System model, interfaces, state, tenancy and capabilities
     architecture/                 Agent/platform architecture
     contracts/                    Output and workflow JSON contracts
     research/                     n8n internals, provenance, tooling and methodology
