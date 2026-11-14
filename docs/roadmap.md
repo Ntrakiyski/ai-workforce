@@ -70,3 +70,16 @@ All milestones below are future work. There are no implied deadlines.
 - [ ] Release only after reproducible validation.
 
 **Exit criteria:** Skill consistently selects existing tools, generates compatible JSON and refuses unsupported claims.
+
+## M6 - Official SDK, skills and n8n community reuse (research track)
+
+- [x] Discover official n8n agent skills and typed Workflow SDK in pinned upstream source.
+- [x] Audit native human review, sub-workflows, execution metadata and multiple trigger concepts.
+- [x] Catalogue verified community approval/policy integrations and representative verified creators.
+- [ ] Test official skills and `@n8n/workflow-sdk` in a pinned disposable n8n instance.
+- [ ] Benchmark JSON directly vs typed SDK vs adapted template for identical specs.
+- [ ] Build reusable human approval capability with identity, payload binding, expiry, replay protection and audit.
+- [ ] Inspect creator workflow JSON and curate 20-30 license-safe, versioned patterns.
+- [ ] Verify custom-node development process using official node CLI, and inspect package trust risks.
+
+**Exit criteria:** evidence-backed decision on generation backend; representative tested workflow fixtures; community patterns approved only after reproducing expected behavior and failure handling.

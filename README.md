@@ -111,6 +111,16 @@ n8n-engineering-system/
   artifacts/                      Empty until generated and verified
 ```
 
+## Newly verified n8n building blocks (November 2026)
+
+The research now identifies **official n8n skills**, a **typed Workflow SDK**, native **human review / send-and-wait**, **Execute Sub-workflow**, **Execution Data**, **multiple triggers**, and **verified community policy/approval nodes** as high-value design inputs. These are tools to evaluate, not evidence that our framework has implemented them.
+
+- [Native primitives and community node audit](docs/research/n8n-native-primitives-and-community-2026-11.md)
+- [Verified creators and builders ecosystem](docs/research/creator-and-builder-ecosystem-2026-11.md)
+- [Human authorization and policy gate standard](docs/standards/human-approval-and-policy-gates.md)
+
+**Research hypothesis:** generating workflows with the official typed SDK and official skills may be safer than raw JSON; benchmark before adopting it as the required generator.
+
 ## Ground rules
 
 - **Do not equate JSON parsing with n8n importability or runtime correctness.** n8n itself separates structural checks from semantic/publish checks.

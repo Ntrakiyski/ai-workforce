@@ -16,3 +16,16 @@
 | Q-012 | P1 | What execution data redaction/retention guarantees apply across queue workers and logs? | Docs + config/runtime test | Open |
 | Q-013 | P2 | What template selection metrics predict production quality rather than just popularity? | Curated corpus and scoring experiment | Open |
 | Q-014 | P2 | Which REA probes actually add knowledge beyond source code for the editor? | Small proof-of-concept | Open |
+
+## November 2026 research additions
+
+| ID | Priority | Research question | Required evidence | State |
+|---|---|---|---|---|
+| Q-015 | P0 | Is SDK-first construction more reliable than direct JSON generation on the target n8n release? | Identical specifications, valid graph comparisons, staging results | Open |
+| Q-016 | P0 | Which official n8n skills and MCP tools work on each instance version/edition? | Pinned skills, MCP list, reproducible tool calls | Open |
+| Q-017 | P0 | What are the exact callback, identity and replay semantics of native human review? | Signed/resume runtime tests, malicious and expired cases | Open |
+| Q-018 | P0 | How do we safely map approval to immutable action payload and once-only side effect? | Concurrent/stale/replayed decision tests | Open |
+| Q-019 | P1 | When does Execution Data remain searchable and how do retention and limits vary by method/edition? | Official docs + API and pruning tests | Open |
+| Q-020 | P1 | Does a multi-trigger workflow preserve independent entry security and predictable branch semantics? | Webhook/chat/schedule staged tests | Open |
+| Q-021 | P1 | Which verified community nodes are safe and compatible in our deployment profiles? | Dependency/security/license/ops audit | Open |
+| Q-022 | P1 | Which creator templates provide high-reliability reusable patterns rather than marketing demos? | Licensed JSON corpus and staging tests | Open |

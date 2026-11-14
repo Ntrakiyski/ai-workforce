@@ -15,6 +15,14 @@ You are contributing to the `n8n-engineering-system` repository.
 - No arbitrary "healthy", "tested", or "live" badges. If execution evidence is missing, mark it unknown/unverified.
 - Treat 2027 positioning as our product strategy, not as a demonstrated universal trend. This interface and its fidelity checks are currently **design proposals**.
 
+## n8n native skills and SDK research (November 2026)
+
+Before planning or generating n8n workflows, inspect [official n8n skills](https://github.com/n8n-io/skills) using the `using-n8n-skills-official` routing guidance and applicable capability skill where available. Check the installed n8n instance's MCP tool schema and feature version before relying on a tool name.
+
+Read `docs/research/n8n-native-primitives-and-community-2026-11.md` and `docs/research/creator-and-builder-ecosystem-2026-11.md` for resource discoveries. Evaluate `@n8n/workflow-sdk` as a candidate generation backend; do **not** bypass original JSON contract, connection fidelity, approval or staging gates. Do not present third-party verified community nodes as audited safe for clients.
+
+For approval/policy gates consult `docs/standards/human-approval-and-policy-gates.md`: authorization must be scoped to actual actor, tenant and action payload, time-limited, replay-protected, and verified before sensitive side effects.
+
 ## Mandatory operating procedure
 
 1. Identify the target n8n **instance version, edition and deployment mode**. Use the pinned research baseline only for baseline research, not as a substitute for the target instance's exact version.

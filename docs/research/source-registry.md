@@ -51,3 +51,18 @@
 - Which workflow template patterns remain valid after migration and have reproducible tests?
 
 See [open questions](../backlog/open-questions.md) and [methodology](methodology.md).
+
+## November 2026: high-value additions
+
+| Priority | Source | Verified role | Next action |
+|---|---|---|---|
+| P0 | [Official n8n Skills](https://github.com/n8n-io/skills) at commit `626f50fdf2934116eea2c5469339e03d2d524e83` | 14 capability skills plus meta-skill, 50+ references, MCP tool routing, test/publish practices | Read references, compare rules and pin install version |
+| P0 | [Official Workflow SDK](https://github.com/n8n-io/n8n/tree/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/workflow-sdk) | Typed workflow creation, code/JSON conversion and SDK validation | Benchmark against direct JSON generation on pinned staging |
+| P0 | [SDK web-app guide](https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/workflow-sdk/src/prompts/best-practices/guides/web-app.ts) | Webhook-served HTML app pattern and file-based template embedding | Test HTML security, CSP and browser functionality |
+| P0 | [Execute Sub-workflow and Execution Data docs](https://docs.n8n.io/) | Reusable workflow boundaries and searchable execution metadata | Verify target edition/version and exact JSON |
+| P1 | [cQnce Approval](https://github.com/cqnce-app/n8n-nodes-cqnce) | Third-party human approval callback/polling patterns | Audit callback/replay/tenant safety and install constraints |
+| P1 | [Guardian](https://github.com/X-Guardian-X/n8n-nodes-guardian) | Third-party action policy, approval and atomic intent claims | Audit security and instance compatibility |
+| P1 | [Verified Creators](https://n8n.io/creators/) | Examples of MCP wrappers, backup workflows and business patterns | Collect 20-30 examples with provenance and stage them |
+| P1 | [Official node CLI](https://github.com/n8n-io/n8n/tree/master/packages/%40n8n/node-cli) | Scaffold custom nodes and credentials | Compare declarative vs programmatic node effort |
+
+Details: [native primitives audit](n8n-native-primitives-and-community-2026-11.md), [creator ecosystem](creator-and-builder-ecosystem-2026-11.md), [approval standard](../standards/human-approval-and-policy-gates.md). These sources are not proof of any running system.

@@ -180,6 +180,83 @@
       "source_commit": null,
       "checked_at": "2026-11-14",
       "notes": "Project-specific safety policy, not a native n8n constraint."
+    },
+    {
+      "id": "E-016",
+      "claim": "n8n-io/skills README contains 14 capability skills plus a routing meta skill, and documents session and MCP tool hooks.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/n8n-io/skills/blob/626f50fdf2934116eea2c5469339e03d2d524e83/README.md",
+      "n8n_version": null,
+      "source_commit": "626f50fdf2934116eea2c5469339e03d2d524e83",
+      "checked_at": "2026-11-14",
+      "notes": "Repository n8n-owned; functionality still requires checking installed agent/runtime."
+    },
+    {
+      "id": "E-017",
+      "claim": "The pinned n8n Workflow SDK README advertises typed workflow building, JSON-to-code generation, flow control and built-in validation.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/workflow-sdk/README.md",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Features documented in source README; no SDK runtime benchmark executed."
+    },
+    {
+      "id": "E-018",
+      "claim": "The pinned n8n Workflow SDK contains a guide for serving HTML single-page interfaces from webhooks.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/workflow-sdk/src/prompts/best-practices/guides/web-app.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Guide exists; browser/CSP and deployed behavior not tested."
+    },
+    {
+      "id": "E-019",
+      "claim": "The cQnce n8n community node README claims callback and polling approval modes, using n8n execution resume URLs.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/cqnce-app/n8n-nodes-cqnce",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Maintainer claims; callback security and target compatibility not independently tested."
+    },
+    {
+      "id": "E-020",
+      "claim": "The Guardian n8n community node README documents allow/deny/approval policy gates and an atomic intent claim pattern.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/X-Guardian-X/n8n-nodes-guardian",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Maintainer claims; external policy and concurrency behavior not independently tested."
+    },
+    {
+      "id": "E-021",
+      "claim": "The n8n official creators directory lists prolific verified creators such as Rahul Joshi, David Ashby, Yaron Been, Harshil Agrawal and Davide Boizza.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://n8n.io/creators/",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Counts change; inspected individual profiles. Number of templates is not a quality metric."
+    },
+    {
+      "id": "E-022",
+      "claim": "The n8n-owned lifecycle skill requires workflow validation, connection inspection and runtime testing before publish.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/n8n-io/skills/blob/626f50fdf2934116eea2c5469339e03d2d524e83/skills/n8n-workflow-lifecycle-official/SKILL.md",
+      "n8n_version": null,
+      "source_commit": "626f50fdf2934116eea2c5469339e03d2d524e83",
+      "checked_at": "2026-11-14",
+      "notes": "Official skill instructions inspected, but no actual n8n execution performed."
     }
   ]
 }
