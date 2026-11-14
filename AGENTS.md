@@ -29,6 +29,8 @@ For approval/policy gates consult `docs/standards/human-approval-and-policy-gate
 
 Follow [ADR-0004](docs/decisions/0004-adopt-official-n8n-skills-and-sdk.md) and [official toolchain](docs/framework/official-toolchain.md). We are **not** rebuilding the n8n SDK. Use upstream [n8n Skills](https://github.com/n8n-io/skills) and its `using-n8n-skills-official` router when installed, the official workflow SDK when supported, and scoped instance-level MCP where available. Our original work is system-level specifications, safety policy, reusable capabilities, tests, revision control and evidence-backed maps.
 
+The pinned n8n 2.47.7 source bundles official Workflow SDK version `0.40.2`, whereas Subworkflow-AI's unofficial SDK documentation targets `0.27.2`. Verify real installed SDK exports, node parameters and codegen behavior for the actual target; do not blindly copy older examples.
+
 If the official skills/plugin or MCP is not installed/authenticated, clearly report that limitation and do not claim to have used it. If SDK methods do not support a required feature, use a documented alternative and retain all validation, staging and release gates.
 
 ## Additional tooling evaluations — not dependencies

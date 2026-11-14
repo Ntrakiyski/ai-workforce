@@ -18,6 +18,14 @@ The primary workflow authoring stack **remains official n8n Skills + `@n8n/workf
 
 **Interpretation:** Validates only a synthetic self-contained output regression on this engine version. Does not validate queue mode, credentials, security, human review or production rollout.
 
+## Cross-cutting SDK documentation compatibility
+
+**F-13 — The official SDK version and community reverse-engineered guide are not the same release.** The [official Workflow SDK package at our pinned n8n 2.47.7 source](https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/workflow-sdk/package.json) reports SDK **0.40.2**. The [Subworkflow-AI unofficial SDK documentation](https://github.com/Subworkflow-AI/unofficial-n8n-workflow-sdk-docs/blob/128b29226f27ba31e8541587fe8a49b58f71a413/package.json) targets SDK **0.27.2**.
+
+**Policy:** Treat the unofficial guide as a tested historical learning resource, **not an API specification for 0.40.2**. Before generating code, inspect `npm ls @n8n/workflow-sdk`, the installed SDK export surface and version-pinned upstream examples; compile and run a minimal fixture. Do not assume all historical SDK traps/fixes still apply.
+
+This compatibility note concerns our existing official SDK foundation; it does **not** add a fifth tooling evaluation candidate.
+
 ### Key source-verified findings
 
 | Finding | Severity | Source observation | Engineering consequence |

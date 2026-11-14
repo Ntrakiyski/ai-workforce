@@ -6,7 +6,10 @@
     "workflow_sdk": "@n8n/workflow-sdk",
     "agent_skills": "https://github.com/n8n-io/skills",
     "instance_ops": "authorized n8n MCP",
-    "preferred_authoring": "official-sdk-first-subject-to-benchmark"
+    "preferred_authoring": "official-sdk-first-subject-to-benchmark",
+    "pinned_sdk_component_version": "0.40.2",
+    "community_sdk_guide_version": "0.27.2",
+    "sdk_version_caution": "Do not use unofficial 0.27.2 examples as authoritative for bundled 0.40.2 without API verification."
   },
   "candidate_count": 4,
   "candidates": [
