@@ -140,6 +140,21 @@ flowchart LR
 
 **What we still build:** system specifications, architecture decisions, cross-workflow contracts, security/tenancy, deterministic quality gates, independent review, release governance and behavior-first presentation.
 
+## Four additional reuse candidates — evaluation only
+
+After the official SDK/Skills decision, we are investigating **four** existing tools to reuse rather than rebuilding functionality. **No package has been installed, deployed, or selected as a production dependency.**
+
+| Candidate | Possible job in the framework | Current decision |
+|---|---|---|
+| [n8n-as-code](https://github.com/EtienneLescot/n8n-as-code) | Optional workflow repository sync and environment promotion | Pilot vs official CLI; avoid duplicating SDK authoring |
+| [n8n-check](https://github.com/blucca/n8n-check) | Real-engine workflow regression tests and CI reports | Highest-value testing pilot |
+| [Official @n8n/cli](https://github.com/n8n-io/n8n/tree/master/packages/%40n8n/cli) | Baseline authorized instance operations and inspection | First operations pilot |
+| [n8n-schema-generator](https://github.com/yigitkonur/n8n-schema-generator) | Pin-compatible node and credential schema snapshots | Conditional pilot; validate version drift and skipped nodes |
+
+The previously proposed fifth resource is **excluded**. Do not add it as a dependency or knowledge source.
+
+Read the [research and reuse matrix](docs/research/tooling-reuse-shortlist-2026-11-15.md) and [pilot plan with acceptance criteria](docs/roadmap/tooling-integration-pilots.md). **Official SDK + Skills remain our source-of-truth foundation.**
+
 ## Newly verified n8n building blocks (November 2026)
 
 The research now identifies **official n8n skills**, a **typed Workflow SDK**, native **human review / send-and-wait**, **Execute Sub-workflow**, **Execution Data**, **multiple triggers**, and **verified community policy/approval nodes** as high-value design inputs. These are tools to evaluate, not evidence that our framework has implemented them.

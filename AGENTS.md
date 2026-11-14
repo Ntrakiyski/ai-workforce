@@ -31,6 +31,16 @@ Follow [ADR-0004](docs/decisions/0004-adopt-official-n8n-skills-and-sdk.md) and 
 
 If the official skills/plugin or MCP is not installed/authenticated, clearly report that limitation and do not claim to have used it. If SDK methods do not support a required feature, use a documented alternative and retain all validation, staging and release gates.
 
+## Additional tooling evaluations — not dependencies
+
+Read [the four-tool shortlist](docs/research/tooling-reuse-shortlist-2026-11-15.md) and [pilot plan](docs/roadmap/tooling-integration-pilots.md) before installing or replacing workflow construction, validation, QA or deployment tooling.
+
+- Evaluate exactly four research candidates: `n8n-as-code`, `n8n-check`, official `@n8n/cli`, and `n8n-schema-generator`. The fifth proposal in the previous comparison was **explicitly excluded**; do not add it.
+- Prefer `@n8n/cli` for supported authorized operations; test `n8n-as-code` as an **optional** GitOps/environment adapter, not as a competing default SDK or a second writer to the same workflows.
+- Pin `n8n-check` test execution to the target n8n release and run synthetic, isolated fixtures; the documented default runner version is not automatically the target release.
+- Demand complete coverage reporting from schema extraction; a skipped node must not be silently treated as validated. Verify node/credential versions match the target instance.
+- Do not install any candidate, add write credentials, or claim runtime test success merely because its upstream README describes capabilities.
+
 ## Mandatory operating procedure
 
 1. Identify the target n8n **instance version, edition and deployment mode**. Use the pinned research baseline only for baseline research, not as a substitute for the target instance's exact version.

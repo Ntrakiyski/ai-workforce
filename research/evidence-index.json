@@ -257,6 +257,50 @@
       "source_commit": "626f50fdf2934116eea2c5469339e03d2d524e83",
       "checked_at": "2026-11-14",
       "notes": "Official skill instructions inspected, but no actual n8n execution performed."
+    },
+    {
+      "id": "E-023",
+      "claim": "n8n-as-code documents CLI/environment management, Git-oriented workflow pull/push, a separate TypeScript transformer and promotion dry-run.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/EtienneLescot/n8n-as-code/blob/97b7e53c9ebad9dd516345b7d3664cb397987580/README.md",
+      "n8n_version": null,
+      "source_commit": "97b7e53c9ebad9dd516345b7d3664cb397987580",
+      "checked_at": "2026-11-15",
+      "notes": "Project README inspected; no GitOps end-to-end staging test. MIT license."
+    },
+    {
+      "id": "E-024",
+      "claim": "n8n-check documents running workflow exports in an isolated n8n engine with fixture HTTP mocks, assertion reports and GitHub CI action; runner defaults to n8n 2.41.7 unless selected.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/blucca/n8n-check/blob/61f6a2e50111f5a89b3131eba3ca5f2b548213d5/README.md",
+      "n8n_version": "default example 2.41.7",
+      "source_commit": "61f6a2e50111f5a89b3131eba3ca5f2b548213d5",
+      "checked_at": "2026-11-15",
+      "notes": "Maintainer README examined; isolated runner and CI not independently executed. MIT license."
+    },
+    {
+      "id": "E-025",
+      "claim": "The official @n8n/cli README documents Public API workflows, execution, credential, project and table commands and machine-readable output.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/cli/README.md",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-15",
+      "notes": "Official package/README inspected at pinned commit; target API permissions and edition constraints not tested."
+    },
+    {
+      "id": "E-026",
+      "claim": "n8n-schema-generator declares older n8n-nodes-base/n8n-workflow package dependency ranges and advertises source-derived schema extraction with node/config validation.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/yigitkonur/n8n-schema-generator/blob/10374df02d96fdb206e1e950c6d566cf90af372f/README.md",
+      "n8n_version": null,
+      "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
+      "checked_at": "2026-11-15",
+      "notes": "Maintainer README and package.json inspected; version skew/skipped schemas have not been independently audited. MIT license."
     }
   ]
 }

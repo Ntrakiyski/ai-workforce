@@ -15,6 +15,21 @@ All milestones below are future work. There are no implied deadlines. The [execu
 
 
 
+## Tooling reuse evaluation (four candidates)
+
+**[Detailed pilot plan](roadmap/tooling-integration-pilots.md)** · **[Source-backed shortlist](research/tooling-reuse-shortlist-2026-11-15.md)**.
+
+- [x] Identify distinct roles and overlaps for n8n-as-code, n8n-check, official @n8n/cli and n8n-schema-generator.
+- [x] Record source, risk, version compatibility concerns and per-tool acceptance criteria.
+- [ ] Run official CLI read-only capability tests against disposable n8n.
+- [ ] Verify a version-matched schema registry and rejected/skipped node cases.
+- [ ] Generate one reference flow via official SDK and inspect real graph.
+- [ ] Catch controlled silent-data-loss and duplicate-side-effect regressions using n8n-check with pinned engine.
+- [ ] Test n8n-as-code Dev-to-Staging sync, dry run, diff and safe credential/workflow remapping only if official CLI cannot provide equivalent value.
+- [ ] Decide per capability: adopt, adapt, reference-only or reject. Do not run competing write/sync jobs.
+
+The previous fifth candidate is out of scope. **No tool integration has been completed.**
+
 ## M0 - Documentation baseline (this archive)
 
 - [x] Record product goals and explicit non-goals.

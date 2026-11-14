@@ -66,3 +66,17 @@ See [open questions](../backlog/open-questions.md) and [methodology](methodology
 | P1 | [Official node CLI](https://github.com/n8n-io/n8n/tree/master/packages/%40n8n/node-cli) | Scaffold custom nodes and credentials | Compare declarative vs programmatic node effort |
 
 Details: [native primitives audit](n8n-native-primitives-and-community-2026-11.md), [creator ecosystem](creator-and-builder-ecosystem-2026-11.md), [approval standard](../standards/human-approval-and-policy-gates.md). These sources are not proof of any running system.
+
+
+## Additional tooling candidates — 2026-11-15
+
+The candidates below are [under evaluation](tooling-reuse-shortlist-2026-11-15.md), **not approved runtime dependencies**. The earlier fifth proposal is excluded.
+
+| Priority | Repository | Source-confirmed capability | Validation before reuse |
+|---|---|---|---|
+| P0 | [EtienneLescot/n8n-as-code](https://github.com/EtienneLescot/n8n-as-code/tree/97b7e53c9ebad9dd516345b7d3664cb397987580) | n8nac CLI, editor/workspace integration, Git-like sync, environment promotion | Compare to official CLI, test drift and promotion against staging |
+| P0 | [blucca/n8n-check](https://github.com/blucca/n8n-check/tree/61f6a2e50111f5a89b3131eba3ca5f2b548213d5) | Real-engine workflow regression harness, fixture assertions, CI JSON/JUnit | Pin test n8n image, run positive/negative mock cases safely |
+| P0 | [Official @n8n/cli](https://github.com/n8n-io/n8n/tree/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/cli) | Public API operations, inspections and optional edition-dependent promotion | Read-only tests, version/permission capability table |
+| P1 | [yigitkonur/n8n-schema-generator](https://github.com/yigitkonur/n8n-schema-generator/tree/10374df02d96fdb206e1e950c6d566cf90af372f) | Node and credential schema extraction, static validation API | Match n8n instance version and enumerate skipped node classes |
+
+See [the experimental integration plan](../roadmap/tooling-integration-pilots.md). Do not mistake a documented tool for a verified deployment.
