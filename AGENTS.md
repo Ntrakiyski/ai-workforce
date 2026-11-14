@@ -19,9 +19,15 @@ You are contributing to the `n8n-engineering-system` repository.
 
 Before planning or generating n8n workflows, inspect [official n8n skills](https://github.com/n8n-io/skills) using the `using-n8n-skills-official` routing guidance and applicable capability skill where available. Check the installed n8n instance's MCP tool schema and feature version before relying on a tool name.
 
-Read `docs/research/n8n-native-primitives-and-community-2026-11.md` and `docs/research/creator-and-builder-ecosystem-2026-11.md` for resource discoveries. Evaluate `@n8n/workflow-sdk` as a candidate generation backend; do **not** bypass original JSON contract, connection fidelity, approval or staging gates. Do not present third-party verified community nodes as audited safe for clients.
+Read `docs/research/n8n-native-primitives-and-community-2026-11.md` and `docs/research/creator-and-builder-ecosystem-2026-11.md` for resource discoveries. Prefer `@n8n/workflow-sdk` as the SDK-first candidate, subject to ADR-0004's benchmark and version checks; do **not** bypass original JSON contract, connection fidelity, approval or staging gates. Do not present third-party verified community nodes as audited safe for clients.
 
 For approval/policy gates consult `docs/standards/human-approval-and-policy-gates.md`: authorization must be scoped to actual actor, tenant and action payload, time-limited, replay-protected, and verified before sensitive side effects.
+
+## Official n8n building baseline
+
+Follow [ADR-0004](docs/decisions/0004-adopt-official-n8n-skills-and-sdk.md) and [official toolchain](docs/framework/official-toolchain.md). We are **not** rebuilding the n8n SDK. Use upstream [n8n Skills](https://github.com/n8n-io/skills) and its `using-n8n-skills-official` router when installed, the official workflow SDK when supported, and scoped instance-level MCP where available. Our original work is system-level specifications, safety policy, reusable capabilities, tests, revision control and evidence-backed maps.
+
+If the official skills/plugin or MCP is not installed/authenticated, clearly report that limitation and do not claim to have used it. If SDK methods do not support a required feature, use a documented alternative and retain all validation, staging and release gates.
 
 ## Mandatory operating procedure
 

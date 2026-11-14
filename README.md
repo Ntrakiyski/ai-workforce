@@ -111,6 +111,27 @@ n8n-engineering-system/
   artifacts/                      Empty until generated and verified
 ```
 
+## Official n8n toolchain is the foundation
+
+**Architectural decision [ADR-0004](docs/decisions/0004-adopt-official-n8n-skills-and-sdk.md):** We will build the **spec-driven systems framework on top of n8n's official Skills, Workflow SDK and authorized instance-level MCP**, not recreate the workflow SDK. The SDK-first approach is the preferred *candidate*, to be confirmed by benchmarking and staging tests.
+
+~~~mermaid
+flowchart LR
+  SPEC["Product specification"] --> PLAN["System capability contracts"]
+  PLAN --> BUILD["Official n8n Workflow SDK"]
+  SK["Official n8n Skills"] --> PLAN
+  SK --> BUILD
+  MCP["Instance-level MCP"] --> BUILD
+  BUILD --> J["n8n workflow JSON"]
+  J --> QA["Validation + staging + review"]
+  QA --> MAP["Evidence-backed behavior map"]
+~~~
+
+- [Official toolchain and setup](docs/framework/official-toolchain.md)
+- [Official skills baseline and installation](skills/README.md)
+
+**What we still build:** system specifications, architecture decisions, cross-workflow contracts, security/tenancy, deterministic quality gates, independent review, release governance and behavior-first presentation.
+
 ## Newly verified n8n building blocks (November 2026)
 
 The research now identifies **official n8n skills**, a **typed Workflow SDK**, native **human review / send-and-wait**, **Execute Sub-workflow**, **Execution Data**, **multiple triggers**, and **verified community policy/approval nodes** as high-value design inputs. These are tools to evaluate, not evidence that our framework has implemented them.
@@ -119,7 +140,7 @@ The research now identifies **official n8n skills**, a **typed Workflow SDK**, n
 - [Verified creators and builders ecosystem](docs/research/creator-and-builder-ecosystem-2026-11.md)
 - [Human authorization and policy gate standard](docs/standards/human-approval-and-policy-gates.md)
 
-**Research hypothesis:** generating workflows with the official typed SDK and official skills may be safer than raw JSON; benchmark before adopting it as the required generator.
+**Implementation direction:** prefer the official typed SDK and skills for supported workflow construction, but benchmark against direct JSON and template adaptation before making that path mandatory.
 
 ## Ground rules
 

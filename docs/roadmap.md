@@ -71,9 +71,12 @@ All milestones below are future work. There are no implied deadlines.
 
 **Exit criteria:** Skill consistently selects existing tools, generates compatible JSON and refuses unsupported claims.
 
-## M6 - Official SDK, skills and n8n community reuse (research track)
+## M6 - Official SDK, skills and n8n community reuse (adopted toolchain; implementation pending)
+
+The chosen toolchain is documented in [ADR-0004](decisions/0004-adopt-official-n8n-skills-and-sdk.md) and [official toolchain](framework/official-toolchain.md). We will **not** rebuild the upstream SDK. We will implement system-level specifications, governance and validation around it.
 
 - [x] Discover official n8n agent skills and typed Workflow SDK in pinned upstream source.
+- [x] Adopt official Skills and SDK-first generation as the primary design direction (benchmark still pending).
 - [x] Audit native human review, sub-workflows, execution metadata and multiple trigger concepts.
 - [x] Catalogue verified community approval/policy integrations and representative verified creators.
 - [ ] Test official skills and `@n8n/workflow-sdk` in a pinned disposable n8n instance.

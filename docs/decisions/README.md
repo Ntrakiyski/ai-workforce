@@ -5,3 +5,5 @@ Decision records document version choices, design trade-offs, operational restri
 The n8n-native system direction is recorded in [ADR-0002](0002-n8n-native-systems-framework.md).
 
 The human-facing behavioral abstraction is recorded in [ADR-0003](0003-behavior-first-visual-abstraction.md).
+
+The decision to reuse the official n8n SDK, Skills and MCP is recorded in [ADR-0004](0004-adopt-official-n8n-skills-and-sdk.md).
