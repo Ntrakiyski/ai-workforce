@@ -1,6 +1,19 @@
 # Delivery Roadmap
 
-All milestones below are future work. There are no implied deadlines.
+All milestones below are future work. There are no implied deadlines. The [executive decision record](strategy/executive-decisions-2026-11-15.md) defines the chosen product architecture and the distinctions between decisions and implementation evidence.
+
+## Immediate priority — first spec-to-n8n-to-visual vertical slice
+
+1. [ ] Confirm version-pinned official n8n Skills, Workflow SDK and instance-level MCP in a disposable non-production environment; document permissions and compatibility.
+2. [ ] Define an executable system specification and manifest for one customer-request capability with two entry channels, explicit identity checks, data read, denial/error paths and an optional human-review gate.
+3. [ ] Build the reference flow with the official SDK, inspect actual generated JSON/connections, and compare with an equivalent direct JSON fixture.
+4. [ ] Execute staging tests for correct response, rejected access, errors, retries, duplicate requests and approval edge cases. Record real execution evidence.
+5. [ ] Generate a business-level visual behavior map linked to the *approved workflow revision* and test map fidelity against the deployed graph.
+6. [ ] Document independent review, release approval and rollback. **Do not** imply production readiness from SDK or static validation alone.
+
+**Exit criteria:** an end-to-end reproducible, non-production example that converts a human product specification to a real n8n workflow and a truthful visual abstraction. Expand the pattern library only after this works.
+
+
 
 ## M0 - Documentation baseline (this archive)
 

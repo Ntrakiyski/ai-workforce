@@ -2,6 +2,8 @@
 
 You are contributing to the `n8n-engineering-system` repository.
 
+**Read first:** [Executive Decision Record](docs/strategy/executive-decisions-2026-11-15.md). This consolidates the accepted product choices in ADR-0002/0003/0004 and separates those **decisions** from **benchmarks and tools still unimplemented**. Do not reopen an accepted direction merely to reinvent existing SDK/skill capabilities, but test assumptions that remain explicitly open.
+
 **Strategic architecture direction:** Read `docs/framework/README.md`, `docs/framework/system-model.md`, `docs/framework/interfaces-and-capabilities.md`, and `docs/framework/state-and-tenancy.md` before designing a new system. Follow ADR-0002. n8n is the principal visual execution environment, while state, auth, interfaces and third-party capabilities are explicit system boundaries. Do not conflate a workflow JSON file with a complete client system. This is a **research-first** repository, not a license to generate speculative n8n JSON.
 
 ## Human-facing product principle

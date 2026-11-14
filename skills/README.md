@@ -5,9 +5,9 @@
 ## Upstream
 
 - Source: [n8n-io/skills](https://github.com/n8n-io/skills)
-- Pinned research snapshot: commit \`626f50fdf2934116eea2c5469339e03d2d524e83\`; review and upgrade intentionally
-- Router: \`using-n8n-skills-official\`
-- Relevant capability skills: \`n8n-workflow-lifecycle-official\`, \`n8n-subworkflows-official\`, \`n8n-node-configuration-official\`, \`n8n-error-handling-official\`, \`n8n-credentials-and-security-official\`, plus others as needed
+- Pinned research snapshot: commit `626f50fdf2934116eea2c5469339e03d2d524e83`; review and upgrade intentionally
+- Router: `using-n8n-skills-official`
+- Relevant capability skills: `n8n-workflow-lifecycle-official`, `n8n-subworkflows-official`, `n8n-node-configuration-official`, `n8n-error-handling-official`, `n8n-credentials-and-security-official`, plus others as needed
 - Source license: Apache-2.0 (upstream LICENSE); this repo currently **links to** rather than vendors the official skill files
 
 ## Install locally in Codex

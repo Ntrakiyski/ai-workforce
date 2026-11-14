@@ -4,6 +4,14 @@
 
 > n8n is technically a workflow automation platform. The language analogy describes our approach; this repository is a research/design baseline, not an implemented application framework.
 
+## Decisions closed — 15 November 2026
+
+The [executive decision record](docs/strategy/executive-decisions-2026-11-15.md) consolidates the agreed **product direction**, **human-facing abstraction**, **official SDK / Skills / MCP foundation**, **n8n-native reuse**, and **safe release boundaries**.
+
+**Our commitment:** build a **spec-driven n8n systems framework** *on top of n8n's official tools*, not another workflow SDK or a generic agent-chat UI. The user specifies outcomes, the agents assemble/test the implementation, and the default interface shows what the system actually does through verified business-level boxes.
+
+**Next milestone:** one version-pinned SDK-first reference system, generated from a product spec, tested on isolated n8n staging, with its visual behavior map derived from real workflow artifacts. **Not built yet.** See [roadmap](docs/roadmap.md).
+
 ## The 2027 product-development thesis
 
 **Build from a specification. Let agents handle implementation. Let humans understand the actual product through a visual map of its behavior.**
