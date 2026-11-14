@@ -46,6 +46,14 @@ Read [the source-level findings](docs/research/tooling-source-audit-2026-11-15.m
 - Treat `n8nac push` as potentially **live publishing** for published workflows. Never give an agent unapproved production push access. `push --verify` is not a dry run; use explicit reviewed dry-run promotion before any staged writes.
 - The `.github/workflows/n8n-check-smoke.yml` synthetic test has **verified limited runtime evidence**: [run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). Read [the evidence report](docs/research/pilots/n8n-check-verified-run-2026-11-15.md). Do not extend this narrow output-regression result to other n8n nodes, providers, permissions or production releases without separate tests.
 
+## BoxLite development environment — target, not active
+
+Read [BoxLite staging bootstrap](infra/boxlite/README.md) and [ADR-0006](docs/decisions/0006-boxlite-private-staging.md). The chosen next staging environment is a **private managed BoxLite Cloud microVM**, not GitHub Actions. **However no Box has been provisioned or linked from this chat.** Do not claim the Box exists, n8n is running, or Box-specific tests passed until verified run evidence is recorded.
+
+**Security:** The user provided a BoxLite Cloud API key in conversation and screenshot; it must be treated as compromised and rotated before use. Never reproduce the key, put it in code, `AGENTS.md`, logs or GitHub, or pass it to the n8n guest. Obtain a fresh key via operator CLI interactive auth. No public inbound, no unapproved production credentials or runtime mutations. BoxLite Cloud auto-stop counts external SDK activity, not guest processes; private staging is not a 24/7 agent deployment.
+
+The `infra/boxlite/provision.sh` and `infra/boxlite/run-regression.sh` scripts are **unexecuted bootstrap templates**. Verify exact installed versions, private networking, actual test outputs, and storage persistence in a real connected environment.
+
 ## Mandatory operating procedure
 
 1. Identify the target n8n **instance version, edition and deployment mode**. Use the pinned research baseline only for baseline research, not as a substitute for the target instance's exact version.

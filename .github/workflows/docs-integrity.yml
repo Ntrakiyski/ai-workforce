@@ -9,6 +9,7 @@ on:
       - "research/**"
       - "scripts/check_docs.py"
       - "tests/**"
+      - "infra/boxlite/**"
       - ".github/workflows/docs-integrity.yml"
   pull_request:
     paths:
@@ -18,6 +19,7 @@ on:
       - "research/**"
       - "scripts/check_docs.py"
       - "tests/**"
+      - "infra/boxlite/**"
       - ".github/workflows/docs-integrity.yml"
   workflow_dispatch:
 
@@ -35,5 +37,7 @@ jobs:
           persist-credentials: false
       - name: Verify links and research evidence
         run: python3 scripts/check_docs.py
+      - name: Shell syntax for private BoxLite bootstrap
+        run: bash -n infra/boxlite/*.sh
       - name: Run documentation consistency tests
         run: python3 -m unittest discover -s tests -v

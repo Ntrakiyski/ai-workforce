@@ -2,6 +2,20 @@
 
 All milestones below are future work. There are no implied deadlines. The [executive decision record](strategy/executive-decisions-2026-11-15.md) defines the chosen product architecture and the distinctions between decisions and implementation evidence.
 
+## Runtime staging substrate — BoxLite (chosen, blocked on provider access)
+
+Reference: [ADR-0006](decisions/0006-boxlite-private-staging.md) and [private BoxLite operator runbook](../infra/boxlite/README.md).
+
+- [x] Verify BoxLite Cloud image compatibility, CLI auth, lifecycle, network policy, and Node version requirements from upstream source.
+- [x] Prepare secret-free BoxLite private bootstrap, start/stop/logs, and synthetic n8n-check regression commands.
+- [ ] Rotate the BoxLite key exposed in chat; authenticate from a network-enabled operator machine.
+- [ ] Create a private Box, install n8n/SDK/runner and prove a private health response.
+- [ ] Execute synthetic n8n-check positive and negative controls *inside BoxLite*, retain JSON/JUnit evidence, and compare with archived GitHub Actions pilot.
+- [ ] Verify actual Cloud lifecycle, egress restrictions, persistence, costs and cleanup/backup.
+- [ ] Connect agent workflow-building tools only after authentication/permission gates are reviewed.
+
+**Status:** no Box created or contacted from this environment; bootstrap scripts are not runtime evidence. GitHub Actions remains historical regression evidence and a source-integrity check, not the intended dev server.
+
 ## Immediate priority — first spec-to-n8n-to-visual vertical slice
 
 1. [ ] Confirm version-pinned official n8n Skills, Workflow SDK and instance-level MCP in a disposable non-production environment; document permissions and compatibility.
