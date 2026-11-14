@@ -26,9 +26,3 @@ artifacts/*
 .DS_Store
 .vscode/
 .idea/
-
-# BoxLite local state and operator credentials (never commit)
-.boxlite/
-.boxlite-state/
-infra/boxlite/.env
-infra/boxlite/*.log

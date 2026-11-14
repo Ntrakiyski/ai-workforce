@@ -411,61 +411,6 @@
       "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
       "checked_at": "2026-11-15",
       "notes": "Community guide version verified via https://github.com/Subworkflow-AI/unofficial-n8n-workflow-sdk-docs/blob/128b29226f27ba31e8541587fe8a49b58f71a413/package.json . Do not import guide as version-matched SDK spec."
-    },
-    {
-      "id": "E-037",
-      "claim": "n8n 2.47.7 package.json declares engines.node >=24.0.0.",
-      "status": "VERIFIED_SOURCE",
-      "source_type": "n8n_source",
-      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/cli/package.json",
-      "n8n_version": "2.47.7",
-      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
-      "checked_at": "2026-11-15",
-      "notes": "Requires Node 24 in planned BoxLite runtime."
-    },
-    {
-      "id": "E-038",
-      "claim": "BoxLite Cloud official docs support public OCI images and private-by-default inbound access.",
-      "status": "VERIFIED_SOURCE",
-      "source_type": "official_docs",
-      "url": "https://github.com/boxlite-ai/documentation/blob/main/cloud/use-your-image.mdx",
-      "n8n_version": null,
-      "source_commit": null,
-      "checked_at": "2026-11-15",
-      "notes": "Read alongside network-policy.mdx. This corrects an earlier outdated summary suggesting only image aliases."
-    },
-    {
-      "id": "E-039",
-      "claim": "BoxLite Cloud defaults to stopping boxes after 900 seconds without external SDK/terminal activity; internal guest jobs do not prevent stopping.",
-      "status": "VERIFIED_SOURCE",
-      "source_type": "official_docs",
-      "url": "https://github.com/boxlite-ai/documentation/blob/main/cloud/box-lifecycle.mdx",
-      "n8n_version": null,
-      "source_commit": null,
-      "checked_at": "2026-11-15",
-      "notes": "Planned BoxLite stage explicitly configures auto-stop 3600; unsuitable for always-on client webhook delivery."
-    },
-    {
-      "id": "E-040",
-      "claim": "BoxLite Cloud API keys can control boxes and spend organization capacity; interactive CLI authentication can store credentials locally.",
-      "status": "VERIFIED_SOURCE",
-      "source_type": "official_docs",
-      "url": "https://github.com/boxlite-ai/documentation/blob/main/cloud/api-keys.mdx",
-      "n8n_version": null,
-      "source_commit": null,
-      "checked_at": "2026-11-15",
-      "notes": "Key pasted in user chat must be revoked and rotated; never record the value in repo or VM."
-    },
-    {
-      "id": "E-041",
-      "claim": "Chat execution environment cannot resolve api.boxlite.ai and does not have the BoxLite CLI, so no Box was created or tested.",
-      "status": "UNVERIFIED",
-      "source_type": "local_observation",
-      "url": "https://github.com/Ntrakiyski/n8n-dev/blob/main/infra/boxlite/README.md",
-      "n8n_version": null,
-      "source_commit": null,
-      "checked_at": "2026-11-15",
-      "notes": "Observed local curl DNS failure. Claims about future Cloud runtime remain unverified until an external operator executes bootstrap."
     }
   ]
 }

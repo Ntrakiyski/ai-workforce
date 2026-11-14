@@ -11,5 +11,3 @@ The decision to reuse the official n8n SDK, Skills and MCP is recorded in [ADR-0
 **Executive consolidation:** [Decisions closed for the first implementation milestone](../strategy/executive-decisions-2026-11-15.md). This summarizes ADR-0002 through ADR-0004; it is not an additional independent architecture decision.
 
 The four-tool evaluation and safety boundaries are recorded in [ADR-0005](0005-tooling-reuse-evaluation.md); it is not a blanket approval to install those projects.
-
-The decision to move the mutable development/staging runtime to a **private BoxLite Cloud VM**—without claiming it is provisioned—is recorded in [ADR-0006](0006-boxlite-private-staging.md).

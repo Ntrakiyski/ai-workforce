@@ -12,16 +12,6 @@ The [executive decision record](docs/strategy/executive-decisions-2026-11-15.md)
 
 **Next milestone:** one version-pinned SDK-first reference system, generated from a product spec, tested on isolated n8n staging, with its visual behavior map derived from real workflow artifacts. **Not built yet.** See [roadmap](docs/roadmap.md).
 
-## Development environment: private BoxLite microVM (prepared, not created)
-
-Our next **n8n development runtime** is a persistent private [BoxLite Cloud microVM](infra/boxlite/README.md), replacing GitHub Actions as the *intended* place for interactive workflow building and staging. The provisioning scripts target **n8n 2.47.7, Workflow SDK 0.40.2, and n8n-check 0.1.9** on Node 24; a synthetic n8n-check smoke command will run inside the Box.
-
-**Status: NOT PROVISIONED.** This chat execution sandbox cannot reach BoxLite Cloud, and no provider connector is available. A [network-enabled operator must rotate the exposed Cloud API key and run the private bootstrap](infra/boxlite/README.md); do not claim there is a live Box yet. BoxLite auto-stop can interrupt background services, so this is staging, **not an always-on client server**.
-
-- [Private BoxLite bootstrap and testing guide](infra/boxlite/README.md)
-- [ADR-0006: BoxLite development/staging environment](docs/decisions/0006-boxlite-private-staging.md)
-- [Existing GitHub Actions runtime experiment](docs/research/pilots/n8n-check-verified-run-2026-11-15.md) remains independent historical proof of regression detection, not our permanent staging host
-
 ## The 2027 product-development thesis
 
 **Build from a specification. Let agents handle implementation. Let humans understand the actual product through a visual map of its behavior.**
