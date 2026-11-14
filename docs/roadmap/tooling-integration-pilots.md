@@ -7,6 +7,14 @@
 
 Prove which existing tools can supply **workflow schema knowledge, truthful runtime verification, safe n8n instance operations, and optional Git-based environment promotion** without introducing duplicate infrastructure or changing our product vision.
 
+## First experiment prepared: isolated CI regression pilot
+
+The [synthetic n8n-check fixture](../../tests/fixtures/n8n-check-smoke/README.md) and [GitHub Actions job](../../.github/workflows/n8n-check-smoke.yml) use an immutable `n8n-check` source commit, specify n8n **2.47.7**, and supply a positive workflow and a known-broken mutation. The positive control must exit 0; the broken control must exit 1 rather than 2. The action runs no client workflows and requires no secrets.
+
+**Status at documentation time:** CI configuration prepared; not yet recorded as a completed runtime test. Check the associated GitHub run logs and preserve output artifacts. Local execution is blocked by missing Docker, blocked package-registry DNS, and Node 22 (n8n-check CLI declares Node >=24).
+
+[Detailed source-level risk assessment](../research/tooling-source-audit-2026-11-15.md) documents version drift, published-workflow mutation risks and wildcard-CORS schema-server exposure.
+
 ## Execution order and concrete artifacts
 
 | Gate | Experiment | Deliverable | Exit condition |

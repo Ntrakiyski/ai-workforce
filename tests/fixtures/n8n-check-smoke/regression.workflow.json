@@ -1,0 +1,68 @@
+{
+  "name": "Research pilot — scored rows (negative mutation)",
+  "nodes": [
+    {
+      "id": "manual-start",
+      "name": "Pilot start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "fixture-input",
+      "name": "Fixture input",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "score-filter",
+      "name": "Filter eligible",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return $input.all().filter(item => item.json.score >= 0.95);"
+      }
+    }
+  ],
+  "connections": {
+    "Pilot start": {
+      "main": [
+        [
+          {
+            "node": "Fixture input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fixture input": {
+      "main": [
+        [
+          {
+            "node": "Filter eligible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

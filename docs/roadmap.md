@@ -21,6 +21,9 @@ All milestones below are future work. There are no implied deadlines. The [execu
 
 - [x] Identify distinct roles and overlaps for n8n-as-code, n8n-check, official @n8n/cli and n8n-schema-generator.
 - [x] Record source, risk, version compatibility concerns and per-tool acceptance criteria.
+- [x] Inspect core implementation, licensing, exposed server behavior, Docker isolation and version pins; publish engineering audit.
+- [x] Prepare synthetic positive and deliberately broken n8n-check fixtures with GitHub Actions job (run result still unverified).
+- [ ] Verify GitHub Actions pilot completed and archive real passed/failed reports, or record its execution blocker explicitly.
 - [ ] Run official CLI read-only capability tests against disposable n8n.
 - [ ] Verify a version-matched schema registry and rejected/skipped node cases.
 - [ ] Generate one reference flow via official SDK and inspect real graph.

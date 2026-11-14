@@ -301,6 +301,83 @@
       "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
       "checked_at": "2026-11-15",
       "notes": "Maintainer README and package.json inspected; version skew/skipped schemas have not been independently audited. MIT license."
+    },
+    {
+      "id": "E-027",
+      "claim": "n8n-schema-generator committed snapshot identifies n8n 1.120.10 and 428 nodes, not pinned project n8n 2.47.7.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/yigitkonur/n8n-schema-generator/blob/10374df02d96fdb206e1e950c6d566cf90af372f/schemas/_meta.json",
+      "n8n_version": null,
+      "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
+      "checked_at": "2026-11-15",
+      "notes": "Snapshot source checked; incompatible with exact target version unless regenerated."
+    },
+    {
+      "id": "E-028",
+      "claim": "n8n-schema-generator uses empty catch blocks in node/credential class loading and can skip extraction failures without reporting them.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/yigitkonur/n8n-schema-generator/blob/10374df02d96fdb206e1e950c6d566cf90af372f/extract.ts",
+      "n8n_version": null,
+      "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
+      "checked_at": "2026-11-15",
+      "notes": "Source inspected; actual number of skipped nodes unknown."
+    },
+    {
+      "id": "E-029",
+      "claim": "n8n-schema-generator server sets wildcard CORS and listens on PORT without passing localhost-only host; no authentication check found in HTTP route handler.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/yigitkonur/n8n-schema-generator/blob/10374df02d96fdb206e1e950c6d566cf90af372f/server.ts",
+      "n8n_version": null,
+      "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
+      "checked_at": "2026-11-15",
+      "notes": "Source inspected; do not expose without isolation/authentication."
+    },
+    {
+      "id": "E-030",
+      "claim": "n8n-check Docker action runs with --network none and read-only workflow/case input mounts; runner uses n8n import:workflow and execute --rawOutput.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/blucca/n8n-check/blob/61f6a2e50111f5a89b3131eba3ca5f2b548213d5/src/action.mjs",
+      "n8n_version": null,
+      "source_commit": "61f6a2e50111f5a89b3131eba3ca5f2b548213d5",
+      "checked_at": "2026-11-15",
+      "notes": "Code inspection only; no action runtime result established at this point."
+    },
+    {
+      "id": "E-031",
+      "claim": "n8n-check default Action/Docker n8n version is 2.41.7; action supports exact version selection; package CLI specifies Node >=24.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/blucca/n8n-check/blob/61f6a2e50111f5a89b3131eba3ca5f2b548213d5/action.yml",
+      "n8n_version": null,
+      "source_commit": "61f6a2e50111f5a89b3131eba3ca5f2b548213d5",
+      "checked_at": "2026-11-15",
+      "notes": "README/action/Dockerfile/package consulted; our smoke action explicitly selects 2.47.7."
+    },
+    {
+      "id": "E-032",
+      "claim": "n8n-as-code CLI documents that push on an already published n8n 2.x workflow may release the changed version; push --verify is a push, not dry-run.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/EtienneLescot/n8n-as-code/blob/97b7e53c9ebad9dd516345b7d3664cb397987580/packages/cli/README.md",
+      "n8n_version": null,
+      "source_commit": "97b7e53c9ebad9dd516345b7d3664cb397987580",
+      "checked_at": "2026-11-15",
+      "notes": "Documented upstream and corroborated by packages/cli/src/commands/sync.ts."
+    },
+    {
+      "id": "E-033",
+      "claim": "Official @n8n/cli package version in n8n 2.47.7 source is 0.27.0 under LicenseRef-n8n-sustainable-use; CLI config writes API key file mode 0600.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/cli/package.json",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-15",
+      "notes": "Source/package/config.ts inspected; actual target instance permissions untested."
     }
   ]
 }

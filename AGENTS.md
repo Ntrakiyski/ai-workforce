@@ -33,13 +33,16 @@ If the official skills/plugin or MCP is not installed/authenticated, clearly rep
 
 ## Additional tooling evaluations — not dependencies
 
-Read [the four-tool shortlist](docs/research/tooling-reuse-shortlist-2026-11-15.md) and [pilot plan](docs/roadmap/tooling-integration-pilots.md) before installing or replacing workflow construction, validation, QA or deployment tooling.
+Read [the source-level findings](docs/research/tooling-source-audit-2026-11-15.md), [the four-tool shortlist](docs/research/tooling-reuse-shortlist-2026-11-15.md) and [pilot plan](docs/roadmap/tooling-integration-pilots.md) before installing or replacing workflow construction, validation, QA or deployment tooling.
 
 - Evaluate exactly four research candidates: `n8n-as-code`, `n8n-check`, official `@n8n/cli`, and `n8n-schema-generator`. The fifth proposal in the previous comparison was **explicitly excluded**; do not add it.
 - Prefer `@n8n/cli` for supported authorized operations; test `n8n-as-code` as an **optional** GitOps/environment adapter, not as a competing default SDK or a second writer to the same workflows.
 - Pin `n8n-check` test execution to the target n8n release and run synthetic, isolated fixtures; the documented default runner version is not automatically the target release.
 - Demand complete coverage reporting from schema extraction; a skipped node must not be silently treated as validated. Verify node/credential versions match the target instance.
 - Do not install any candidate, add write credentials, or claim runtime test success merely because its upstream README describes capabilities.
+- Treat `n8n-schema-generator`'s committed n8n `1.120.10` snapshot as **incompatible research data** for 2.47.7 until exact source-derived regeneration and skipped-node accounting succeed. Do not expose its unauthenticated wildcard-CORS server on the internet.
+- Treat `n8nac push` as potentially **live publishing** for published workflows. Never give an agent unapproved production push access. `push --verify` is not a dry run; use explicit reviewed dry-run promotion before any staged writes.
+- The `.github/workflows/n8n-check-smoke.yml` fixture is an experimental test. Only completed CI run logs and results can establish real execution; configuration alone is not evidence.
 
 ## Mandatory operating procedure
 

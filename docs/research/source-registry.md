@@ -80,3 +80,5 @@ The candidates below are [under evaluation](tooling-reuse-shortlist-2026-11-15.m
 | P1 | [yigitkonur/n8n-schema-generator](https://github.com/yigitkonur/n8n-schema-generator/tree/10374df02d96fdb206e1e950c6d566cf90af372f) | Node and credential schema extraction, static validation API | Match n8n instance version and enumerate skipped node classes |
 
 See [the experimental integration plan](../roadmap/tooling-integration-pilots.md). Do not mistake a documented tool for a verified deployment.
+
+**Implementation/source audit:** [2026-11-15 source assessment](tooling-source-audit-2026-11-15.md) inspected the Docker action, runner, CLI source, and schema extractor/server. Critical findings: n8n-check defaults to engine 2.41.7; schema snapshot is n8n 1.120.10 with silent extractor skips and a permissive HTTP server; n8nac can live-publish existing workflows. Source inspection is not runtime acceptance.

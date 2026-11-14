@@ -4,6 +4,8 @@
 **Status:** RESEARCHED / NOT INSTALLED / NOT RUNTIME-VALIDATED  
 **Target baseline:** n8n 2.47.7 (source commit `d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063`); verify exact client instance independently.
 
+**Implementation-level follow-up:** [2026-11-15 source audit](tooling-source-audit-2026-11-15.md) and [isolated n8n-check pilot](../../tests/fixtures/n8n-check-smoke/README.md). The prior shortlist was a hypothesis; these references examine executable source and failure behavior.
+
 ## Scope
 
 This shortlist contains **exactly four** candidates from the November discussion. The fifth proposal was explicitly rejected and is **not** a dependency, reference corpus, or planned framework component. Do not reintroduce it through a generated research plan.

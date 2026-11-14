@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "name": "Preserve eligible customer records",
+  "input": {
+    "node": "Fixture input",
+    "items": [
+      {
+        "tenant_id": "synthetic-tenant-A",
+        "id": "request-A",
+        "score": 0.9
+      },
+      {
+        "tenant_id": "synthetic-tenant-A",
+        "id": "request-B",
+        "score": 0.8
+      },
+      {
+        "tenant_id": "synthetic-tenant-A",
+        "id": "request-C",
+        "score": 0.2
+      }
+    ]
+  },
+  "mocks": [],
+  "assertions": [
+    {
+      "node": "Filter eligible",
+      "count": 2,
+      "pluck": "json.id",
+      "equals": [
+        "request-A",
+        "request-B"
+      ]
+    }
+  ]
+}

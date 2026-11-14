@@ -153,7 +153,7 @@ After the official SDK/Skills decision, we are investigating **four** existing t
 
 The previously proposed fifth resource is **excluded**. Do not add it as a dependency or knowledge source.
 
-Read the [research and reuse matrix](docs/research/tooling-reuse-shortlist-2026-11-15.md) and [pilot plan with acceptance criteria](docs/roadmap/tooling-integration-pilots.md). **Official SDK + Skills remain our source-of-truth foundation.**
+Read the [source-level engineering assessment](docs/research/tooling-source-audit-2026-11-15.md), [research and reuse matrix](docs/research/tooling-reuse-shortlist-2026-11-15.md), [pilot plan](docs/roadmap/tooling-integration-pilots.md), and [ADR-0005](docs/decisions/0005-tooling-reuse-evaluation.md). A [synthetic real-engine regression pilot](tests/fixtures/n8n-check-smoke/README.md) is configured in GitHub Actions; consult its run before claiming success. **Official SDK + Skills remain our source-of-truth foundation.**
 
 ## Newly verified n8n building blocks (November 2026)
 
