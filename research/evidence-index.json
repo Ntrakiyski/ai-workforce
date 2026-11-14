@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.1.0",
+  "checked_at": "2026-11-14",
+  "research_baseline": {
+    "product": "n8n",
+    "version": "2.47.7",
+    "commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+    "release_url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.47.7",
+    "runtime_tested": false
+  },
+  "status_vocabulary": [
+    "VERIFIED_RUNTIME",
+    "VERIFIED_SOURCE",
+    "PROPOSED_STANDARD",
+    "SECONDARY_CLAIM",
+    "UNVERIFIED"
+  ],
+  "findings": [
+    {
+      "id": "E-001",
+      "claim": "n8n 2.47.7 is a non-prerelease release published on 2026-11-13 and tagged at commit d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "release_metadata",
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.47.7",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Version pin for this snapshot; not a claim this remains latest in perpetuity."
+    },
+    {
+      "id": "E-002",
+      "claim": "The tagged workflow structural validator checks nodes and connections, names/IDs, references and shape but does not check installed node type, parameter correctness, credential validity or activation readiness.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/workflow/src/workflow-structure-validation.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Inspected entire source file; comments explicitly identify excluded checks."
+    },
+    {
+      "id": "E-003",
+      "claim": "Native input structural validation requires name, type and position per node while accepting omitted id, typeVersion and parameters, but INode TypeScript interface requires the latter fields.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/workflow/src/workflow-structure-validation.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Also inspect packages/workflow/src/interfaces.ts INode; this is not proof of every endpoint DTO."
+    },
+    {
+      "id": "E-004",
+      "claim": "The n8n node OnError enum supports continueErrorOutput, continueRegularOutput and stopWorkflow.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/workflow/src/interfaces.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Type declaration inspected; runtime semantics not yet exercised."
+    },
+    {
+      "id": "E-005",
+      "claim": "Connection map limit MAX_CONNECTION_INDEX is 1000 and MAX_DESTINATION_INPUT_SLOTS is 100000 in the tagged source.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/workflow/src/common/map-connections-by-destination.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "Source inspected; not all runtime graph limits audited."
+    },
+    {
+      "id": "E-006",
+      "claim": "The n8n helper validateWorkflowHasTriggerLikeNode checks for recognized non-disabled polling, trigger or webhook-capable nodes.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "n8n_source",
+      "url": "https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/workflow/src/workflow-validation.ts",
+      "n8n_version": "2.47.7",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "checked_at": "2026-11-14",
+      "notes": "A helper, not the entire publication validator pipeline."
+    },
+    {
+      "id": "E-007",
+      "claim": "n8n docs describe sub-workflows using Execute Workflow and Execute Sub-workflow Trigger, including explicit input-field and JSON-example input modes.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/build/flow-logic/break-workflows-into-smaller-parts.md",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Live official documentation; recheck for target version."
+    },
+    {
+      "id": "E-008",
+      "claim": "n8n official error-handling docs state an error workflow begins with the Error Trigger, may be reused and receives different data for trigger-node failures.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/build/flow-logic/handle-errors-gracefully.md",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Official docs, not an exhaustive runtime matrix."
+    },
+    {
+      "id": "E-009",
+      "claim": "n8n official docs warn exported workflow JSON can contain credential names/IDs and HTTP Request auth headers.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/build/manage-workflows/export-and-import.md",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Apply sanitation before sharing any exported artifact."
+    },
+    {
+      "id": "E-010",
+      "claim": "Official n8n environment tutorial says Git push uses saved workflow versions and remote publication is separate; native source-control environments are Business/Enterprise features.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/administer/use-source-control-and-environments/tutorial-create-environments-with-source-control.md",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Edition availability may change; confirm on the target account."
+    },
+    {
+      "id": "E-011",
+      "claim": "Official queue-mode docs describe main instance, Redis and worker instances and note filesystem binary storage is unsupported in queue mode.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/deploy/host-n8n/configure-n8n/scaling/enable-queue-mode.md",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Also documented: workers need shared encryption key; verify deployment settings."
+    },
+    {
+      "id": "E-012",
+      "claim": "The community n8n-MCP README claims 3501 nodes, 2352 templates, workflow validation/testing, snapshot support and multi-instance integration.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/czlonkowski/n8n-mcp/blob/59515bad4ed10a8ddc9d3007a0dc4a9cadafd4bf/README.md",
+      "n8n_version": null,
+      "source_commit": "59515bad4ed10a8ddc9d3007a0dc4a9cadafd4bf",
+      "checked_at": "2026-11-14",
+      "notes": "Figures and functional claims are self-reported. README references n8n 2.46.7; audit target compatibility."
+    },
+    {
+      "id": "E-013",
+      "claim": "REA README advertises analysis of JavaScript/Electron and native applications via MCP and CLI.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_repo",
+      "url": "https://github.com/morluto/rea/blob/78b7064b8053b0076b4329013611881f395b6aba/README.md",
+      "n8n_version": null,
+      "source_commit": "78b7064b8053b0076b4329013611881f395b6aba",
+      "checked_at": "2026-11-14",
+      "notes": "Tool not installed or run in this documentation baseline."
+    },
+    {
+      "id": "E-014",
+      "claim": "Programmatic-style node creators may need to set pairedItem to preserve item lineage for downstream expressions.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_docs",
+      "url": "https://docs.n8n.io/data/data-mapping/data-item-linking/item-linking-node-building/",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Need Code-node and sub-node variants tested independently."
+    },
+    {
+      "id": "E-015",
+      "claim": "All production changes should require independent staging verification and an explicit production release approval policy.",
+      "status": "PROPOSED_STANDARD",
+      "source_type": "inference",
+      "url": "https://github.com/czlonkowski/n8n-mcp#working-safely-on-live-workflows",
+      "n8n_version": null,
+      "source_commit": null,
+      "checked_at": "2026-11-14",
+      "notes": "Project-specific safety policy, not a native n8n constraint."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# secrets, credentials, client data
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+secrets/
+client-data/
+**/credentials*.json
+
+# outputs, local databases, caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+.tmp/
+.cache/
+artifacts/*
+!artifacts/README.md
+*.db
+*.sqlite
+*.sqlite3
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
