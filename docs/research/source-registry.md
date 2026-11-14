@@ -82,3 +82,5 @@ The candidates below are [under evaluation](tooling-reuse-shortlist-2026-11-15.m
 See [the experimental integration plan](../roadmap/tooling-integration-pilots.md). Do not mistake a documented tool for a verified deployment.
 
 **Implementation/source audit:** [2026-11-15 source assessment](tooling-source-audit-2026-11-15.md) inspected the Docker action, runner, CLI source, and schema extractor/server. Critical findings: n8n-check defaults to engine 2.41.7; schema snapshot is n8n 1.120.10 with silent extractor skips and a permissive HTTP server; n8nac can live-publish existing workflows. Source inspection is not runtime acceptance.
+
+**First runtime proof:** [n8n-check 2.47.7 positive/negative CI report](pilots/n8n-check-verified-run-2026-11-15.md), [run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). Both examples executed successfully in n8n; the incorrect-output mutation failed 2 JUnit checks while the healthy control passed all 5. This is narrow test evidence, not a general certification.

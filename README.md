@@ -147,13 +147,13 @@ After the official SDK/Skills decision, we are investigating **four** existing t
 | Candidate | Possible job in the framework | Current decision |
 |---|---|---|
 | [n8n-as-code](https://github.com/EtienneLescot/n8n-as-code) | Optional workflow repository sync and environment promotion | Pilot vs official CLI; avoid duplicating SDK authoring |
-| [n8n-check](https://github.com/blucca/n8n-check) | Real-engine workflow regression tests and CI reports | Highest-value testing pilot |
+| [n8n-check](https://github.com/blucca/n8n-check) | Real-engine workflow regression tests and CI reports | **Synthetic 2.47.7 runtime pilot passed**; broader coverage pending |
 | [Official @n8n/cli](https://github.com/n8n-io/n8n/tree/master/packages/%40n8n/cli) | Baseline authorized instance operations and inspection | First operations pilot |
 | [n8n-schema-generator](https://github.com/yigitkonur/n8n-schema-generator) | Pin-compatible node and credential schema snapshots | Conditional pilot; validate version drift and skipped nodes |
 
 The previously proposed fifth resource is **excluded**. Do not add it as a dependency or knowledge source.
 
-Read the [source-level engineering assessment](docs/research/tooling-source-audit-2026-11-15.md), [research and reuse matrix](docs/research/tooling-reuse-shortlist-2026-11-15.md), [pilot plan](docs/roadmap/tooling-integration-pilots.md), and [ADR-0005](docs/decisions/0005-tooling-reuse-evaluation.md). A [synthetic real-engine regression pilot](tests/fixtures/n8n-check-smoke/README.md) is configured in GitHub Actions; consult its run before claiming success. **Official SDK + Skills remain our source-of-truth foundation.**
+Read the [source-level engineering assessment](docs/research/tooling-source-audit-2026-11-15.md), [research and reuse matrix](docs/research/tooling-reuse-shortlist-2026-11-15.md), [pilot plan](docs/roadmap/tooling-integration-pilots.md), and [ADR-0005](docs/decisions/0005-tooling-reuse-evaluation.md). The [synthetic n8n-check regression pilot](docs/research/pilots/n8n-check-verified-run-2026-11-15.md) **passed on a real isolated n8n 2.47.7 engine**: the good workflow produced 2 correct IDs; the broken version executed successfully but lost the data and was correctly rejected by n8n-check. [Review the runtime evidence](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). This establishes only a narrow regression-testing use case, **not** universal n8n compatibility. **Official SDK + Skills remain our source-of-truth foundation.**
 
 ## Newly verified n8n building blocks (November 2026)
 
@@ -185,7 +185,7 @@ The research now identifies **official n8n skills**, a **typed Workflow SDK**, n
 | Full node schemas and integration catalog | Not built |
 | Pattern library with tested JSON | Not built |
 | Deterministic n8n validator | Not built |
-| Staging test harness | Not built |
+| Staging test harness | Not built; separate synthetic `n8n-check` real-engine regression pilot verified on 2.47.7 |
 | Installable expert skill | Not built |
 
 ## Verification

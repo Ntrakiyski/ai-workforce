@@ -42,7 +42,7 @@ Read [the source-level findings](docs/research/tooling-source-audit-2026-11-15.m
 - Do not install any candidate, add write credentials, or claim runtime test success merely because its upstream README describes capabilities.
 - Treat `n8n-schema-generator`'s committed n8n `1.120.10` snapshot as **incompatible research data** for 2.47.7 until exact source-derived regeneration and skipped-node accounting succeed. Do not expose its unauthenticated wildcard-CORS server on the internet.
 - Treat `n8nac push` as potentially **live publishing** for published workflows. Never give an agent unapproved production push access. `push --verify` is not a dry run; use explicit reviewed dry-run promotion before any staged writes.
-- The `.github/workflows/n8n-check-smoke.yml` fixture is an experimental test. Only completed CI run logs and results can establish real execution; configuration alone is not evidence.
+- The `.github/workflows/n8n-check-smoke.yml` synthetic test has **verified limited runtime evidence**: [run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040). Read [the evidence report](docs/research/pilots/n8n-check-verified-run-2026-11-15.md). Do not extend this narrow output-regression result to other n8n nodes, providers, permissions or production releases without separate tests.
 
 ## Mandatory operating procedure
 

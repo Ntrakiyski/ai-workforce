@@ -1,7 +1,7 @@
 # Tooling reuse shortlist — four candidates
 
 **Reviewed:** 2026-11-15  
-**Status:** RESEARCHED / NOT INSTALLED / NOT RUNTIME-VALIDATED  
+**Status:** SOURCE-REVIEWED; **n8n-check synthetic runtime pilot passed**, other candidates not tested  
 **Target baseline:** n8n 2.47.7 (source commit `d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063`); verify exact client instance independently.
 
 **Implementation-level follow-up:** [2026-11-15 source audit](tooling-source-audit-2026-11-15.md) and [isolated n8n-check pilot](../../tests/fixtures/n8n-check-smoke/README.md). The prior shortlist was a hypothesis; these references examine executable source and failure behavior.
@@ -114,3 +114,7 @@ Dashed edges are **optional / unproven integrations**. None of these tools has b
 - [n8n-schema-generator README](https://github.com/yigitkonur/n8n-schema-generator/blob/main/README.md), [package.json](https://github.com/yigitkonur/n8n-schema-generator/blob/main/package.json). Its LICENSE is MIT.
 
 **Source-derived versus proposed:** README/project descriptions identify capabilities; all adoption choices, success criteria, risks, and comparisons above are **our engineering proposals**. No successful production run or security audit is claimed.
+
+## First pilot evidence — n8n-check
+
+On n8n 2.47.7, the [real-engine regression pilot](pilots/n8n-check-verified-run-2026-11-15.md) verified correct output from a healthy synthetic workflow and detected missing output from a deliberately flawed workflow, even though the n8n engine itself completed both executions. The CI run and JUnit files confirm 5/5 passing checks for healthy and 2 assertion failures for broken. **Status: PILOT-VALIDATED for this fixture class only.** The other three candidates remain unexecuted.

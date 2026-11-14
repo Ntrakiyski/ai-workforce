@@ -3,14 +3,20 @@
 **Review date:** 2026-11-15  
 **Scope:** Source-level evaluation of four candidates; design of one safe automated regression pilot  
 **Baseline:** n8n `2.47.7`, source commit `d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063`  
-**Status at authoring:** Source inspected. Production/live n8n instances have **not** been connected. An isolated GitHub Actions pilot is included as an executable experiment but requires a completed CI run to count as runtime evidence.  
+**Status:** Source inspected; **limited n8n-check regression pilot verified on an isolated real n8n 2.47.7 runner**. No live client/production n8n instance was connected. The other three candidate tools remain unexecuted.  
 **Audience:** Product architecture, agent engineering, platform operations, security review.
 
 ## Executive decision
 
-**Recommendation: adopt the official n8n CLI as the default candidate for operations, pilot n8n-check as a regression-test engine, evaluate n8n-as-code only where Git/environment sync adds unique value, and defer live use of the schema generator until its extracted node metadata matches n8n 2.47.7.**
+**Recommendation: evaluate the official n8n CLI as the default operations adapter, use n8n-check for limited verified output-regression CI with expansion gates, evaluate n8n-as-code only where Git/environment sync adds unique value, and defer live use of the schema generator until its extracted node metadata matches n8n 2.47.7.**
 
 The primary workflow authoring stack **remains official n8n Skills + `@n8n/workflow-sdk` + approved instance-level MCP**, as established in [ADR-0004](../decisions/0004-adopt-official-n8n-skills-and-sdk.md). None of the four candidates replaces our product specification, manifest, version binding, execution evidence or behavior-map work.
+
+## First independently observed runtime finding
+
+**F-12 — Regression runner detects silent data loss, n8n 2.47.7 — VERIFIED_RUNTIME.** [GitHub Actions run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040) completed **success**. The positive workflow executed successfully and returned exactly 2 eligible IDs (**5 JUnit checks passing**). The intentionally flawed workflow also executed successfully in n8n, but produced 0 records and triggered **2 expected JUnit assertion failures**, correctly returning runner exit **1**, not a setup error. The tests were run under Node v26.13.0 with `network: loopback-only; enforced=true`. [See the immutable evidence report](pilots/n8n-check-verified-run-2026-11-15.md) and [machine-readable condensed evidence](../../research/runtime-evidence/n8n-check-2026-11-15.json).
+
+**Interpretation:** Validates only a synthetic self-contained output regression on this engine version. Does not validate queue mode, credentials, security, human review or production rollout.
 
 ### Key source-verified findings
 
@@ -27,6 +33,12 @@ The primary workflow authoring stack **remains official n8n Skills + `@n8n/workf
 | F-09 — CLI licensing | **Business risk** | [Official CLI package](https://github.com/n8n-io/n8n/blob/d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063/packages/%40n8n/cli/package.json) declares `LicenseRef-n8n-sustainable-use`; third-party candidate package licenses were read as MIT. | Do not treat the official CLI as MIT/open-source or assume the commercial client-hosting model is cleared. |
 | F-10 — Environment capability not present here | **Execution blocker** | Assessment environment has Node `22.16.0`, npm `10.9.2`, no `docker` binary, and outbound package-registry DNS requests fail. [n8n-check's `package.json`](https://github.com/blucca/n8n-check/blob/61f6a2e50111f5a89b3131eba3ca5f2b548213d5/package.json) declares Node `>=24`. | No local n8n runtime/npm integration pilot can be claimed. Use the narrowly scoped GitHub Actions synthetic smoke test and separately provision staging for integration tests. |
 
+### F-11 — n8nac readiness may misclassify licensing (issue report; not independently reproduced)
+
+[Open issue #704](https://github.com/EtienneLescot/n8n-as-code/issues/704) reports that `n8nac env status` returns `invalid-api-key` when `GET /api/v1/projects?limit=1` actually responds HTTP 403 due to a restricted project-administration license feature, while the same API key can read workflows (HTTP 200). The report covers n8n 2.44.5 and `n8nac 2.7.0`, not our 2.47.7 target.
+
+**Action:** test environment readiness with a permission/edition matrix. Do not treat this user's issue as proof of a widespread bug; reproduce on a disposable edition before concluding. A single project-admin probe should not be our only credential-validity signal.
+
 ## Candidate-by-candidate disposition
 
 ### A — Official `@n8n/cli`: baseline operations adapter
@@ -42,7 +54,7 @@ The primary workflow authoring stack **remains official n8n Skills + `@n8n/workf
 - **Proposed smoke:** [synthetic scoring fixture](../../tests/fixtures/n8n-check-smoke/README.md) + [pinned GitHub workflow](../../.github/workflows/n8n-check-smoke.yml) where a healthy filter should return 2 IDs and an intentionally broken filter should fail.
 - **Gate:** runner must return pass (0) on healthy, regression (1) on broken, not setup error (2); report real version 2.47.7 and record upstream tool commit.
 - **Security:** Action pinned to immutable commit, checkout with no persisted credentials, read-only contents permission, fake inputs, no providers and Docker `--network none`. **Still untrusted third-party code:** the workflow action itself runs on the host runner during setup. Keep privileged tokens and secrets unavailable.
-- **Choice:** **promising pilot, not yet accepted as a release gate** pending observed pass/fail behavior.
+- **Choice:** **PILOT-VALIDATED for this self-contained output-regression fixture**. Broader CI gate acceptance requires HTTP mock/retry, side-effect and subworkflow tests.
 
 ### C — `n8n-as-code` (`n8nac`): optional repo-environment synchronization
 
@@ -71,7 +83,7 @@ The primary workflow authoring stack **remains official n8n Skills + `@n8n/workf
 
 ## Recommendation for the first implementation sprint
 
-1. **Run the n8n-check synthetic CI control** and verify expected pass and failure with runtime 2.47.7.
+1. **[Completed]** Run n8n-check synthetic CI on n8n 2.47.7: positive pass and mutation detected; archive results. Next expand to HTTP/retry/subworkflow scenarios.
 2. **Prepare disposable n8n staging** with read-only API credentials, exact version and no client secrets; document installed capabilities.
 3. **Use official SDK + Skills** to create a small system fixture and inspect serialized connections and node versions.
 4. **Probe official CLI** against staging in read-only mode, then evaluate n8nac's *unique* Git-sync functions under scoped credentials.

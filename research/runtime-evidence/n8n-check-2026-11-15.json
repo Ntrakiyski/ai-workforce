@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "evidence_status": "VERIFIED_RUNTIME",
+  "checked_at": "2026-11-15",
+  "local_time_zone": "Europe/Sofia",
+  "source": {
+    "repository": "Ntrakiyski/n8n-dev",
+    "workflow_commit": "947e1aeaee2fb2caa5c828746e9cb880551b50de",
+    "github_actions_run_id": 43649002040,
+    "github_actions_run_url": "https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040",
+    "github_actions_conclusion": "success",
+    "artifact_id": 14135875549,
+    "artifact_url": "https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040/artifacts/14135875549",
+    "artifact_zip_sha256": "7f685804f0f52968b4b98f7d83153604d473e54c203a7b99e94e87e76296b987"
+  },
+  "execution": {
+    "n8n_version": "2.47.7",
+    "runner_version": "0.1.9",
+    "runner_source_commit": "61f6a2e50111f5a89b3131eba3ca5f2b548213d5",
+    "node_version": "v26.13.0",
+    "network": {
+      "mode": "loopback-only",
+      "enforced": true,
+      "interfaces": [
+        "lo"
+      ]
+    },
+    "client_credentials_used": false,
+    "real_provider_calls": false
+  },
+  "experiment": {
+    "purpose": "Confirm runner catches business-data regression despite n8n engine success",
+    "expected_item_count": 2,
+    "expected_ids": [
+      "request-A",
+      "request-B"
+    ],
+    "input_type": "three synthetic tenant-A items"
+  },
+  "positive": {
+    "report_path": "results-positive/report.json",
+    "status": "passed",
+    "exit_code": 0,
+    "engine_cli_exit_code": 0,
+    "actual_count": 2,
+    "actual_ids": [
+      "request-A",
+      "request-B"
+    ],
+    "junit": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    "duration_ms": 12985
+  },
+  "negative": {
+    "report_path": "results-negative/report.json",
+    "status": "failed",
+    "exit_code": 1,
+    "engine_cli_exit_code": 0,
+    "actual_count": 0,
+    "actual_ids": [],
+    "junit": {
+      "tests": 5,
+      "failures": 2,
+      "errors": 0
+    },
+    "duration_ms": 12742,
+    "detected_defects": [
+      "Filter eligible output count mismatch (2 expected, 0 actual)",
+      "Filter eligible json.id mismatch (2 IDs expected, empty result)"
+    ]
+  },
+  "conclusion": "PILOT_VALIDATED_NARROW_SCOPE",
+  "limitations": [
+    "Does not validate wait/resume, external credentials, queue mode, multi-tenant isolation, production release, other tool candidates.",
+    "Other candidate tool runtime pilots have not been performed."
+  ],
+  "provenance": "Summary extracted from the archived GitHub Actions JSON and JUnit reports; exact source artifact and immutable action commit linked above."
+}

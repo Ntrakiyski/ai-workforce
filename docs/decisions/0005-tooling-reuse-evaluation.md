@@ -38,3 +38,7 @@ The four tools overlap substantially. Accepting them as an inseparable stack wou
 - Review and accept/reject each candidate by individual capability, with tests and rollback.
 
 **State:** All items remain experiments pending execution evidence.
+
+## Subsequent limited verification — 2026-11-15
+
+[n8n-check's synthetic regression pilot](../research/pilots/n8n-check-verified-run-2026-11-15.md) succeeded on a real n8n 2.47.7 engine: positive workflow output passed, deliberately broken workflow output failed as intended, and the isolated runner produced JUnit evidence. This moves **only the self-contained regression-check capability** to `PILOT-VALIDATED`, not to unconditional production adoption. The other three candidates are still source-reviewed, not runtime-tested.

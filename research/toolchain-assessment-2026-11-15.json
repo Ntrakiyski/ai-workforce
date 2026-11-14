@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "assessment_date": "2026-11-15",
+  "status": "SOURCE_REVIEWED_PLUS_ONE_LIMITED_RUNTIME_PILOT",
+  "official_foundation": {
+    "workflow_sdk": "@n8n/workflow-sdk",
+    "agent_skills": "https://github.com/n8n-io/skills",
+    "instance_ops": "authorized n8n MCP",
+    "preferred_authoring": "official-sdk-first-subject-to-benchmark"
+  },
+  "candidate_count": 4,
+  "candidates": [
+    {
+      "id": "n8n-cli",
+      "repository": "n8n-io/n8n",
+      "component": "packages/@n8n/cli",
+      "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
+      "source_component_version": "0.27.0",
+      "license": "LicenseRef-n8n-sustainable-use",
+      "source_verified": true,
+      "role": "official operations baseline",
+      "recommendation": "PILOT_FIRST_READ_ONLY",
+      "runtime_test_status": "NOT_EXECUTED",
+      "major_risks": [
+        "API edition/version feature limits",
+        "credential scope",
+        "published workflow changes"
+      ],
+      "acceptance": [
+        "read-only instance and workflow inspection on disposable 2.47.7",
+        "permissions matrix for supported commands",
+        "no unapproved production write"
+      ]
+    },
+    {
+      "id": "n8n-check",
+      "repository": "blucca/n8n-check",
+      "source_commit": "61f6a2e50111f5a89b3131eba3ca5f2b548213d5",
+      "source_component_version": "0.1.9",
+      "license": "MIT",
+      "source_verified": true,
+      "role": "isolated workflow regression CI",
+      "recommendation": "PILOT_VALIDATED_FOR_SYNTHETIC_OUTPUT_REGRESSION_ONLY",
+      "runtime_test_status": "VERIFIED_RUNTIME_NARROW_SCOPE",
+      "major_risks": [
+        "default engine 2.41.7 differs from target",
+        "local Node>=24 and Docker needed",
+        "slice tests not full integration tests"
+      ],
+      "acceptance": [
+        "positive synthetic control exit 0",
+        "negative synthetic mutation exit 1 not setup error",
+        "record actual 2.47.7 engine and JUnit evidence"
+      ],
+      "runtime_test_evidence": {
+        "n8n_version": "2.47.7",
+        "runner_version": "0.1.9",
+        "ci_run_id": 43649002040,
+        "ci_run_url": "https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040",
+        "positive_exit": 0,
+        "negative_exit": 1,
+        "positive_junit": "5 tests, 0 failures",
+        "negative_junit": "5 tests, 2 assertion failures, 0 setup errors",
+        "network": "loopback-only enforced",
+        "artifact_id": 14135875549
+      }
+    },
+    {
+      "id": "n8n-as-code",
+      "repository": "EtienneLescot/n8n-as-code",
+      "source_commit": "97b7e53c9ebad9dd516345b7d3664cb397987580",
+      "source_component_version": "n8nac 2.7.0",
+      "license": "MIT",
+      "source_verified": true,
+      "role": "optional Git workflow synchronization / promotion",
+      "recommendation": "PILOT_READ_ONLY_AND_DRY_RUN",
+      "runtime_test_status": "NOT_EXECUTED",
+      "major_risks": [
+        "push of published workflows can release immediately",
+        "competing authoring dialect",
+        "overlap with official CLI/MCP"
+      ],
+      "acceptance": [
+        "Dev-to-Staging dry-run has no writes",
+        "no lost node/credential references",
+        "one mutation owner and rollback demonstration"
+      ]
+    },
+    {
+      "id": "n8n-schema-generator",
+      "repository": "yigitkonur/n8n-schema-generator",
+      "source_commit": "10374df02d96fdb206e1e950c6d566cf90af372f",
+      "source_component_version": "repo 1.0.0, extracted n8n 1.120.10",
+      "license": "MIT",
+      "source_verified": true,
+      "role": "schema extraction technique and validation reference",
+      "recommendation": "REFERENCE_ONLY_UNTIL_REGENERATED",
+      "runtime_test_status": "NOT_EXECUTED",
+      "major_risks": [
+        "stale extracted source",
+        "silent node-class loading failures",
+        "permissive wildcard-CORS unauthenticated server"
+      ],
+      "acceptance": [
+        "exact 2.47.7 regeneration",
+        "all skips and errors explicitly reported",
+        "20-node and credential parity with target",
+        "loopback-only server and access controls if used"
+      ]
+    }
+  ],
+  "source_assessment": "docs/research/tooling-source-audit-2026-11-15.md",
+  "pilot_instructions": "docs/roadmap/tooling-integration-pilots.md",
+  "pilot_workflow": ".github/workflows/n8n-check-smoke.yml",
+  "limitations": "GitHub source code was inspected. No credentials or live n8n installation were connected. No real-engine success is implied until GitHub Actions reports prove it.",
+  "generated_by": "Evidence from CI run 43649002040; this JSON is manually updated after explicit runtime verification, not automatically synchronized."
+}

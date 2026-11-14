@@ -1,0 +1,39 @@
+name: Documentation and evidence integrity
+
+on:
+  push:
+    paths:
+      - "README.md"
+      - "AGENTS.md"
+      - "docs/**"
+      - "research/**"
+      - "scripts/check_docs.py"
+      - "tests/**"
+      - ".github/workflows/docs-integrity.yml"
+  pull_request:
+    paths:
+      - "README.md"
+      - "AGENTS.md"
+      - "docs/**"
+      - "research/**"
+      - "scripts/check_docs.py"
+      - "tests/**"
+      - ".github/workflows/docs-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout documentation
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify links and research evidence
+        run: python3 scripts/check_docs.py
+      - name: Run documentation consistency tests
+        run: python3 -m unittest discover -s tests -v

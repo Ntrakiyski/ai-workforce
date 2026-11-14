@@ -11,7 +11,7 @@ Prove which existing tools can supply **workflow schema knowledge, truthful runt
 
 The [synthetic n8n-check fixture](../../tests/fixtures/n8n-check-smoke/README.md) and [GitHub Actions job](../../.github/workflows/n8n-check-smoke.yml) use an immutable `n8n-check` source commit, specify n8n **2.47.7**, and supply a positive workflow and a known-broken mutation. The positive control must exit 0; the broken control must exit 1 rather than 2. The action runs no client workflows and requires no secrets.
 
-**Status at documentation time:** CI configuration prepared; not yet recorded as a completed runtime test. Check the associated GitHub run logs and preserve output artifacts. Local execution is blocked by missing Docker, blocked package-registry DNS, and Node 22 (n8n-check CLI declares Node >=24).
+**Run evidence verified:** [GitHub Actions run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040) completed successfully on n8n 2.47.7 with a positive exit 0 and deliberately broken workflow exit 1, matching expected assertions. JUnit: 5/5 passing checks in positive control; 2 expected failures in negative mutation. [Report](../research/pilots/n8n-check-verified-run-2026-11-15.md) and [artifact](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040/artifacts/14135875549). **Only this narrow fixture class is runtime-validated.** Local execution is blocked by missing Docker, blocked package-registry DNS, and Node 22 (n8n-check CLI declares Node >=24).
 
 [Detailed source-level risk assessment](../research/tooling-source-audit-2026-11-15.md) documents version drift, published-workflow mutation risks and wildcard-CORS schema-server exposure.
 
@@ -34,6 +34,10 @@ The [synthetic n8n-check fixture](../../tests/fixtures/n8n-check-smoke/README.md
 **Customer message intake**: Webhook + alternate chat-style entry adapter → verify trusted actor/tenant → call reusable child capability → select deterministic response → human approval on one safe simulated side effect → response + execution/run evidence.
 
 Run synthetic two-tenant fixtures. The flow must include: correct path, denied identity, missing record, failed external API, retry/duplicate event, approval rejected/expired, and changed workflow version. No live client data or production integrations.
+
+## Additional deployment caveat to test
+
+n8n-as-code [issue #704](https://github.com/EtienneLescot/n8n-as-code/issues/704) reports an `env status` false negative caused by a licensed project-admin API probe returning 403 for an otherwise usable workflow API key. Treat this as a **user-reported, unconfirmed compatibility case**. In the Community Edition pilot verify workflow read access independently of license-gated project endpoints.
 
 ## Reuse policy
 

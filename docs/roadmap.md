@@ -23,7 +23,8 @@ All milestones below are future work. There are no implied deadlines. The [execu
 - [x] Record source, risk, version compatibility concerns and per-tool acceptance criteria.
 - [x] Inspect core implementation, licensing, exposed server behavior, Docker isolation and version pins; publish engineering audit.
 - [x] Prepare synthetic positive and deliberately broken n8n-check fixtures with GitHub Actions job (run result still unverified).
-- [ ] Verify GitHub Actions pilot completed and archive real passed/failed reports, or record its execution blocker explicitly.
+- [x] Verify the [GitHub Actions pilot](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040) completed: positive output contract passed; deliberately broken workflow failed by producing zero rather than two records. [Archived evidence](research/pilots/n8n-check-verified-run-2026-11-15.md).
+- [ ] Expand n8n-check runner tests to HTTP mocks, retry/duplicate side effects and parent/child execution ancestry before making it a required release gate.
 - [ ] Run official CLI read-only capability tests against disposable n8n.
 - [ ] Verify a version-matched schema registry and rejected/skipped node cases.
 - [ ] Generate one reference flow via official SDK and inspect real graph.

@@ -378,6 +378,28 @@
       "source_commit": "d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063",
       "checked_at": "2026-11-15",
       "notes": "Source/package/config.ts inspected; actual target instance permissions untested."
+    },
+    {
+      "id": "E-034",
+      "claim": "Open n8n-as-code issue #704 reports a false invalid-api-key signal when a license-gated projects endpoint returns 403 but a workflows GET returns 200.",
+      "status": "SECONDARY_CLAIM",
+      "source_type": "third_party_issue",
+      "url": "https://github.com/EtienneLescot/n8n-as-code/issues/704",
+      "n8n_version": "2.44.5 (reporter environment)",
+      "source_commit": null,
+      "checked_at": "2026-11-15",
+      "notes": "Reporter claim, not independently reproduced; informs Community/limited-role readiness pilot."
+    },
+    {
+      "id": "E-035",
+      "claim": "A pinned n8n-check 0.1.9 GitHub Actions experiment on real n8n 2.47.7 passed the positive workflow-output case (count 2, IDs request-A/B) and detected the intentionally wrong case (0 records) despite n8n engine exit 0, with runner exit 1 for that expected regression.",
+      "status": "VERIFIED_RUNTIME",
+      "source_type": "runtime_evidence",
+      "url": "https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040",
+      "n8n_version": "2.47.7",
+      "source_commit": "947e1aeaee2fb2caa5c828746e9cb880551b50de",
+      "checked_at": "2026-11-15",
+      "notes": "Archived artifact ID 14135875549, ZIP SHA-256 7f685804f0f52968b4b98f7d83153604d473e54c203a7b99e94e87e76296b987. Positive JUnit 5/0, negative 5/2, no client data; isolated loopback network. Only proves synthetic output-regression capability."
     }
   ]
 }
