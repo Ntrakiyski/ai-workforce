@@ -1,0 +1,822 @@
+{
+  "name": "BoxLite Guide — what, how and every node",
+  "nodes": [
+    {
+      "id": "01137ac59307443d2e20a4d2a0c62b85",
+      "name": "Start here — What is BoxLite?",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -100
+      ],
+      "parameters": {
+        "content": "# BoxLite • field guide\n## What it is → how to connect → how the nodes fit together\nBoxLite runs commands inside hardware-isolated microVM boxes. This community node wraps its REST API and execution WebSocket, so n8n can create a box, run work, move files, inspect status and delete the box without a chain of HTTP nodes.\n\n**Read left to right.** The middle row is a runnable, manual-only example. The lower row is a disabled reference library. Opening this workflow does not run anything. There is no webhook or schedule.\n\n**Before Execute Workflow:** select your **BoxLite API** credential on the BoxLite nodes. This example is configured for **self-hosted alpine:latest**, not Cloud. It creates a uniquely named box per execution and deletes only that box. The run can incur cost if you switch to Cloud.",
+        "width": 3780,
+        "height": 370,
+        "color": 5
+      }
+    },
+    {
+      "id": "8990f8f2aec88b7465c5719006b505dd",
+      "name": "01 · Connect",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        340
+      ],
+      "parameters": {
+        "content": "## 01 / Connect once\nChoose **BoxLite API** on each BoxLite node.\n\n**Self-hosted from Docker**\n- Base URL: `http://host.docker.internal:8100`\n- API Key: your server's `--api-key` value, or blank only for a trusted permissive server.\n- Path Prefix: blank for ordinary `boxlite serve`.\n\n**Self-hosted from the host**\nUse `http://127.0.0.1:8100` instead.\n\n**Cloud**\nBase URL: `https://api.boxlite.ai`; use your Cloud key and a supported image alias (`base`, `python`, `node`). Cloud write paths are not live-verified here.\n\nDo not append `/v1` to Base URL. Prefix is only for routes mounted at `/v1/{prefix}/…`.\n\nThe credential test lists boxes. Secrets belong in credentials, never in nodes, sticky notes or exports. Use TLS outside a trusted local network.",
+        "width": 600,
+        "height": 650,
+        "color": 4
+      }
+    },
+    {
+      "id": "d1f039ef3f44902f689c2819093f74fb",
+      "name": "02 · Boxes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        340
+      ],
+      "parameters": {
+        "content": "## 02 / Box lifecycle\n**List → Create → Get** starts the demo.\n\n- **Create:** image, optional name, CPUs, memory, disk, working directory, JSON environment, idle auto-stop and auto-delete.\n- **Get:** inspect one box by ID or name.\n- **List:** returns `{boxes: [...]}`; Limit follows pages, Return All reads every page.\n- **Metrics:** CPU and memory data.\n- **Stop / Start:** change lifecycle state.\n- **Delete:** permanently removes the box. Force permits deleting a running box.\n\nAuto-stop/auto-delete inputs are **minutes**; the wire uses seconds. Zero leaves the server default. When both are set, auto-delete must be greater than auto-stop on the tested server (demo: 5 / 15 minutes).\n\n**Reuse** finds an existing named box, but does not update its image, env or mounts. Do not blindly delete a reused box.\n\nThis example deliberately uses **Fail**, not Reuse, and names its box with the execution ID. Only a box created by this run is cleaned up.",
+        "width": 600,
+        "height": 650,
+        "color": 4
+      }
+    },
+    {
+      "id": "56466277b9367b1e05526ef5e2954cd0",
+      "name": "03 · Commands and executions",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        340
+      ],
+      "parameters": {
+        "content": "## 03 / Run work and inspect it\n**Run command** uses `sh -c` to read the uploaded file and create an output file. Arguments are separate argv values; empty strings are preserved. Prefer argv over interpolating untrusted text into a shell script.\n\nOutput fields:\n- `box_id`, `execution_id`, `status`\n- `exit_code`, `stdout`, `stderr`\n- `output_captured`, `output_truncated`\n- optional `error_message` and `note`\n\n**A non-zero exit is data, not a node error.** Check exit_code explicitly. Server status (completed / killed / timed_out) is authoritative.\n\n**Execution → Get** reads one command's status; **List** returns the server-reported execution/session list, which may omit finished commands. Neither retrieves stdout/stderr. The demo uses both.\n\nOutput capture uses WebSocket binary channels, not the status response. At 1 MiB combined output is truncated; inspect the flag/note. Save larger results as files.",
+        "width": 600,
+        "height": 650,
+        "color": 4
+      }
+    },
+    {
+      "id": "65ef67efb77757ce74e54ac9e66b1288",
+      "name": "04 · Binary files",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        340
+      ],
+      "parameters": {
+        "content": "## 04 / Files in and out\n**Make input file → Upload → Run command → Download → Collect files** is the file example.\n\n- **Upload:** Input Binary Field defaults to `data`. Destination is a directory; File Name is optional. Returns path, file_name, bytes and SHA-256.\n- **Download:** accepts a file or directory; produces one n8n binary item per regular file with path, relative_path, file_name, bytes and SHA-256.\n\nUse `/workspace`, **not /tmp**: the tested server's file API cannot reach the /tmp mount. Upload needs sh, cp, rm and rmdir in the image. Existing files are overwritten; directories and symbolic-link targets are refused.\n\nMax Download defaults to 100 MiB **including tar headers**. Archives are limited to 10,000 entries. Unsafe tar paths are rejected; symbolic links are skipped. These are not total RAM limits.\n\nBox operations return API JSON, not incoming binaries. Generate the binary after Create, as here, or restore it with Merge/Code. Collect fan-out before cleanup: otherwise Delete could run once per downloaded file.",
+        "width": 600,
+        "height": 650,
+        "color": 4
+      }
+    },
+    {
+      "id": "2ae5c3dede02350701e420f8ad998553",
+      "name": "05 · Wait and failure behavior",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        340
+      ],
+      "parameters": {
+        "content": "## 05 / Waiting, failures and cleanup\nWait for Completion defaults on; Max Wait defaults to 120 seconds. **Max Wait does not kill the command.** At the ceiling, continue with an n8n Wait node and Execution → Get.\n\nServer-side Timeout is different: it limits command runtime when supported. Execution states other than completed/killed/timed_out are not terminal.\n\nIf attach fails, status polling still works, but `output_captured: false` warns that silence is not proof of no output. Keep the IDs for inspection.\n\nHTTP/API errors normally stop a node. **Continue On Fail** keeps `error`, `description` and `httpCode` (where available) for routing.\n\nThe demo deliberately continues through intermediate errors, runs Delete, then reports failures in **Run summary**. Its Code nodes also run once for all items. Cancellation, process crashes or Create failing after remote acceptance cannot guarantee cleanup; use auto-stop/delete and inspect leftovers.",
+        "width": 600,
+        "height": 650,
+        "color": 3
+      }
+    },
+    {
+      "id": "27ca095330e617912b4d04a6a657d41b",
+      "name": "06 · Troubleshoot and boundaries",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3200,
+        340
+      ],
+      "parameters": {
+        "content": "## 06 / Troubleshoot\n- **401:** wrong/missing key or mismatched credential.\n- **404 box:** wrong box ID/name or already deleted.\n- **404 file:** the source path does not exist.\n- **400 unsupported volumes:** expected on the tested self-hosted v0.13.1. Not a bad node configuration.\n- **No binary data:** wrong property name or an upstream node dropped the binary.\n- **Upload finalization failed:** check the reported staging path/execution; the target must not be a directory/symlink and the image needs shell tools.\n- **Output unavailable:** check proxy WebSocket upgrades and inspect Execution Get.\n\n**Implemented:** Box, Command, Execution, File and Volume.\n**Not implemented yet:** Checkpoint, tunnel/network, SSH and Image resources. Do not confuse Box image selection with an Image-management resource.\n\nVerified on self-hosted BoxLite v0.13.1 + n8n 2.47.7. Cloud has only a read-only reachability check. Volume success/persistence needs a capable server.\n\nSource docs: package README, REVIEW.md and boxlite-node-plan.md in the local repository.",
+        "width": 600,
+        "height": 650,
+        "color": 3
+      }
+    },
+    {
+      "id": "147efa7f10f3edaeeda013d79ffb3a48",
+      "name": "Read notes, then run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1080
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "2f936462b05158068c55045c8a697a41",
+      "name": "List boxes",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        240,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "list",
+        "returnAll": false,
+        "limit": 10
+      },
+      "notes": "Read-only. Returns a boxes array.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "d14e0cab100590d69eeec0a45f770d10",
+      "name": "Create demo box",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        480,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "create",
+        "image": "alpine:latest",
+        "name": "={{ 'n8n-boxlite-guide-' + $execution.id }}",
+        "ifExists": "fail",
+        "additionalFields": {
+          "autoStopMinutes": 5,
+          "autoDeleteMinutes": 15,
+          "env": "{\"GUIDE_MODE\":\"demo\"}"
+        }
+      },
+      "notes": "Self-hosted Alpine example. Do not switch to a shared/reused box.",
+      "notesInFlow": true
+    },
+    {
+      "id": "d67cccef2629f1b12225fca426a23fe1",
+      "name": "Get demo box",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        720,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "get",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}"
+      },
+      "notes": "Inspect the raw API object.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "e8d8a97ca7bc541cff98aced76f10873",
+      "name": "Make input file",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        1080
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const text = 'hello from n8n\\n';\nreturn [{json: {file_name: 'input.txt', bytes: Buffer.byteLength(text)}, binary: {data: {data: Buffer.from(text).toString('base64'), mimeType: 'text/plain', fileName: 'input.txt'}}}];"
+      },
+      "notes": "One tiny text file, created after the box so its binary cannot be lost by Create.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "efd6a8e1fcb8dc7381e3f469ab1c0b48",
+      "name": "Upload input file",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1080
+      ],
+      "parameters": {
+        "resource": "file",
+        "operation": "upload",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}",
+        "inputBinaryField": "data",
+        "destinationDir": "/workspace/boxlite-guide",
+        "fileName": "input.txt"
+      },
+      "notes": "Upload hash and path are available in this node output.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "83795c4de60dc94df5bddb9bff4ccd94",
+      "name": "Run command",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        1080
+      ],
+      "parameters": {
+        "resource": "command",
+        "operation": "execute",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}",
+        "command": "sh",
+        "arguments": {
+          "argument": [
+            {
+              "value": "-c"
+            },
+            {
+              "value": "set -eu; tr \"[:lower:]\" \"[:upper:]\" < /workspace/boxlite-guide/input.txt > /workspace/boxlite-guide/output.txt; printf \"processed input.txt\\n\"; printf \"example stderr (not a failure)\\n\" >&2"
+            }
+          ]
+        },
+        "additionalFields": {
+          "captureOutput": true,
+          "waitForCompletion": true,
+          "maxWaitSeconds": 30,
+          "timeoutSeconds": 20
+        }
+      },
+      "notes": "Uppercase the file. stderr can contain diagnostics even when exit_code is zero.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "29ef4f71ced05bed1f3c1cbbbdd787a1",
+      "name": "Get execution status",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        1080
+      ],
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}",
+        "executionId": "={{ $('Run command').first().json.execution_id }}"
+      },
+      "notes": "Status only: completed, killed or timed_out is terminal.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "24c47937840e4027b8834cc2703de65b",
+      "name": "List recent executions",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        1080
+      ],
+      "parameters": {
+        "resource": "execution",
+        "operation": "list",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}"
+      },
+      "notes": "Server-reported executions/sessions; finished commands may be omitted.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "3fe442b7deb0c0ee30b3afce549dda08",
+      "name": "Download demo directory",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        1080
+      ],
+      "parameters": {
+        "resource": "file",
+        "operation": "download",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}",
+        "sourcePath": "/workspace/boxlite-guide",
+        "outputBinaryField": "data",
+        "maxDownloadMb": 5
+      },
+      "notes": "Two binary output items: input.txt and output.txt.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "4608e6dfc5ec741f7e53012925c67b05",
+      "name": "Collect files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        1080
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const files = [];\nfor (let i=0; i<$input.all().length; i++) {\n const item = $input.all()[i];\n if (item.json.error) return [{json: item.json}];\n const bytes = await this.helpers.getBinaryDataBuffer(i, 'data');\n files.push({...item.json, text: bytes.toString('utf8')});\n}\nconst input = files.find(f=>f.relative_path==='input.txt');\nconst output = files.find(f=>f.relative_path==='output.txt');\nconst verified = files.length===2 && input?.text==='hello from n8n\\n' && output?.text==='HELLO FROM N8N\\n' && input.sha256===$('Upload input file').first().json.sha256;\nreturn [{json:{verified, files}}];"
+      },
+      "notes": "Collapse file fan-out into one item; verify downloaded bytes, then clean up once.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "a3ff6ce59ffd672f64f59ab869abba90",
+      "name": "Read box metrics",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "metrics",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}"
+      },
+      "notes": "CPU and memory data from the running demo box.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "681aeb7d22ba5a35686df1180059c366",
+      "name": "Stop demo box",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "stop",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}"
+      },
+      "notes": "Stops the box without deleting it.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "6140e9b0feebb6c42a61293e7f64b70b",
+      "name": "Start demo box",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "start",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}"
+      },
+      "notes": "Starts the same box again.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "8a48d86ee4c9a9213cc04ac8f83a30dc",
+      "name": "Delete demo box",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        1080
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "delete",
+        "boxId": "={{ $('Create demo box').first().json.box_id }}",
+        "force": true
+      },
+      "notes": "Deletes only the unique box created by this run.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "b630093941e73779276d351a9d2366c1",
+      "name": "Run summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        1080
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const names = ['List boxes','Get demo box','Make input file','Upload input file','Run command','Get execution status','List recent executions','Download demo directory','Collect files','Read box metrics','Stop demo box','Start demo box','Delete demo box'];\nconst failures = names.flatMap(name => $(name).all().filter(i=>i.json.error).map(i=>({node:name,...i.json})));\nconst files = $('Collect files').first().json;\nconst command = $('Run command').first().json;\nconst deleted = $('Delete demo box').first().json.deleted === true;\nif (failures.length || !files.verified || command.exit_code!==0 || !deleted) throw new Error('Demo did not fully succeed. Cleanup attempted: '+deleted+'. Inspect node outputs: '+JSON.stringify(failures));\nreturn [{json:{ok:true, box_id:$('Create demo box').first().json.box_id, deleted, stdout:command.stdout, stderr:command.stderr, files:files.files, next:'Duplicate the workflow or copy an example node; keep cleanup and review the notes.'}}];"
+      },
+      "notes": "After cleanup, reports real failures rather than hiding them behind Continue On Fail.",
+      "notesInFlow": true
+    },
+    {
+      "id": "a74a157bc192810745e79a8bb14a1dab",
+      "name": "07 · Volumes — reference only",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1450
+      ],
+      "parameters": {
+        "content": "## 07 / Persistent volumes • disabled reference\nVolumes are for data that must outlive a box. **The current self-hosted v0.13.1 refuses named-volume operations.** These examples are disabled and disconnected from the manual run. Successful volume CRUD/persistence has not been live-verified.\n\nOn a capable server: **Create → use its id on Box Create / Volume Mounts → work → delete box → keep volume**. Attach it to a later box to reuse data. Read Only prevents writes in the guest. Box Reuse does not change mounts.\n\nList returns `{volumes: [...]}`. Get/Delete take an ID or name. **Volume Delete permanently destroys the data; Force defaults off.** Uncheck disabled only after configuring a capable server and the intended volume reference. Never use a real shared volume just to test deletion.",
+        "width": 1780,
+        "height": 480,
+        "color": 2
+      }
+    },
+    {
+      "id": "f0ff8867e02f4e66ce0b5664cac1ac02",
+      "name": "Reference — Create volume",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        100,
+        2010
+      ],
+      "parameters": {
+        "resource": "volume",
+        "operation": "create",
+        "name": "my-data"
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "c8c6f2b8edcf09bd50658005d6bef0c0",
+      "name": "Reference — List volumes",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        420,
+        2010
+      ],
+      "parameters": {
+        "resource": "volume",
+        "operation": "list"
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "25f2e0532c271f0c5566ca2f9109bf41",
+      "name": "Reference — Get volume",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        740,
+        2010
+      ],
+      "parameters": {
+        "resource": "volume",
+        "operation": "get",
+        "volumeId": "REPLACE_WITH_VOLUME_ID_OR_NAME"
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "244400924e2097cf0db6d1767cbc655d",
+      "name": "Reference — Delete volume",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        2010
+      ],
+      "parameters": {
+        "resource": "volume",
+        "operation": "delete",
+        "volumeId": "REPLACE_WITH_DISPOSABLE_VOLUME_ID",
+        "force": false
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "730a8ffc46b9ceb09ae142d4a59ee779",
+      "name": "Reference — Create with a volume",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        2010
+      ],
+      "parameters": {
+        "resource": "box",
+        "operation": "create",
+        "image": "alpine:latest",
+        "name": "",
+        "ifExists": "fail",
+        "volumeMounts": {
+          "mount": [
+            {
+              "volume": "REPLACE_WITH_VOLUME_ID_OR_NAME",
+              "guestPath": "/data",
+              "readOnly": false
+            }
+          ]
+        }
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "bc2792102a21b76e65fff2bf8faad32f",
+      "name": "08 · Async recipe and limits",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1950,
+        1450
+      ],
+      "parameters": {
+        "content": "## 08 / Longer work • copy this pattern deliberately\nThe disconnected examples below show an asynchronous command and status inspection. They are **not a runnable polling loop**. Add your own Wait + condition/loop with an attempt/time limit.\n\n1. Command Execute with **Wait for Completion off** returns an execution ID immediately.\n2. Save both box_id and execution_id. Wait a few seconds with an n8n Wait node.\n3. Execution Get with those IDs. Branch on completed/killed/timed_out; otherwise wait and poll again.\n4. Handle non-zero exit, error_message and timeout. Delete only when work is terminal (or deliberately cancel it by deleting the box).\n\n**Status polling does not recover stdout/stderr.** For async output, redirect results into /workspace and download files after completion. For short work, keep output capture on and wait in Command.\n\nOne incoming item means one API action. For batches, use item links or explicit saved IDs; collapse multi-file outputs before lifecycle cleanup.",
+        "width": 1830,
+        "height": 480,
+        "color": 6
+      }
+    },
+    {
+      "id": "417e5ef6840cce1bb24d8900d673a728",
+      "name": "Reference — Execute without waiting",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        2010
+      ],
+      "parameters": {
+        "resource": "command",
+        "operation": "execute",
+        "boxId": "REPLACE_WITH_BOX_ID",
+        "command": "sh",
+        "arguments": {
+          "argument": [
+            {
+              "value": "-c"
+            },
+            {
+              "value": "sleep 10; printf \"done\\n\" > /workspace/result.txt"
+            }
+          ]
+        },
+        "additionalFields": {
+          "waitForCompletion": false,
+          "timeoutSeconds": 60
+        }
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "bd85c40fbba5580162544276bc329b6c",
+      "name": "Reference — Wait before polling",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2500,
+        2010
+      ],
+      "parameters": {
+        "amount": 3,
+        "unit": "seconds"
+      },
+      "disabled": true,
+      "webhookId": "73c7ad4b703514503f8443ee75668291",
+      "notesInFlow": true,
+      "notes": "Reference only. Add a bounded loop around Get status."
+    },
+    {
+      "id": "846e4de752f074223b1eec4d4c7e3c75",
+      "name": "Reference — Get async status",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        2900,
+        2010
+      ],
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "boxId": "REPLACE_WITH_BOX_ID",
+        "executionId": "REPLACE_WITH_EXECUTION_ID"
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    },
+    {
+      "id": "4b3d29e69694bb9db11fa6dcbd69a0a6",
+      "name": "Reference — Download async output",
+      "type": "n8n-nodes-boxlite.boxLite",
+      "typeVersion": 1,
+      "position": [
+        3300,
+        2010
+      ],
+      "parameters": {
+        "resource": "file",
+        "operation": "download",
+        "boxId": "REPLACE_WITH_BOX_ID",
+        "sourcePath": "/workspace/result.txt",
+        "outputBinaryField": "data",
+        "maxDownloadMb": 5
+      },
+      "disabled": true,
+      "notesInFlow": true,
+      "notes": "REFERENCE ONLY — disabled, disconnected. Configure explicitly before use."
+    }
+  ],
+  "connections": {
+    "Read notes, then run manually": {
+      "main": [
+        [
+          {
+            "node": "List boxes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List boxes": {
+      "main": [
+        [
+          {
+            "node": "Create demo box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create demo box": {
+      "main": [
+        [
+          {
+            "node": "Get demo box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get demo box": {
+      "main": [
+        [
+          {
+            "node": "Make input file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Make input file": {
+      "main": [
+        [
+          {
+            "node": "Upload input file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload input file": {
+      "main": [
+        [
+          {
+            "node": "Run command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run command": {
+      "main": [
+        [
+          {
+            "node": "Get execution status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get execution status": {
+      "main": [
+        [
+          {
+            "node": "List recent executions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List recent executions": {
+      "main": [
+        [
+          {
+            "node": "Download demo directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download demo directory": {
+      "main": [
+        [
+          {
+            "node": "Collect files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect files": {
+      "main": [
+        [
+          {
+            "node": "Read box metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read box metrics": {
+      "main": [
+        [
+          {
+            "node": "Stop demo box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stop demo box": {
+      "main": [
+        [
+          {
+            "node": "Start demo box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start demo box": {
+      "main": [
+        [
+          {
+            "node": "Delete demo box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete demo box": {
+      "main": [
+        [
+          {
+            "node": "Run summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "executionTimeout": 300,
+    "saveManualExecutions": true
+  }
+}

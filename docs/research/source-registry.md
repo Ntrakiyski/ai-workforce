@@ -1,5 +1,13 @@
 # Research Source Registry
 
+## Local BoxLite node pilot — 2026-11-16
+
+- **E-BOXLITE-001 / VERIFIED_RUNTIME:** [node review and local execution record](../../nodes/n8n-nodes-boxlite/REVIEW.md),
+  [portable guide and reproduction instructions](../../workflow-examples/README.md).
+  Target: n8n 2.47.7, Docker single-instance; self-hosted BoxLite v0.13.1. Local guide execution 65
+  succeeded; execution 63 intentionally failed after cleanup. Raw traces remain private/local.
+  This does not verify Cloud writes, named-volume persistence or the proposed Hermes integration.
+
 **Snapshot date:** 2026-11-14. This is a prioritized queue, not an assertion that every source has been thoroughly audited.
 
 ## Tier A - Native n8n implementation

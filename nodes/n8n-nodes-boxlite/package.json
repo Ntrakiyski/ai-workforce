@@ -1,0 +1,45 @@
+{
+  "name": "n8n-nodes-boxlite",
+  "version": "0.1.0",
+  "description": "BoxLite microVM sandboxes for n8n — create boxes, run commands, read stdout and stderr.",
+  "license": "MIT",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "boxlite",
+    "sandbox",
+    "microvm"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.js && node scripts/build-guide.js",
+    "dev": "tsc --watch",
+    "test": "npm run build && node --test tests/*.test.js"
+  },
+  "files": [
+    "dist",
+    "examples"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/nodes/BoxLite/BoxLiteApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/BoxLite/BoxLite.node.js"
+    ]
+  },
+  "dependencies": {
+    "tar-stream": "^3.2.2",
+    "ws": "^8.18.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/tar-stream": "^3.1.5",
+    "@types/ws": "^8.5.13",
+    "n8n-workflow": "^2.15.1",
+    "typescript": "^5.7.2"
+  }
+}

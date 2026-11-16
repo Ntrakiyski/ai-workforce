@@ -17,6 +17,16 @@
   ],
   "findings": [
     {
+      "id": "E-BOXLITE-001",
+      "claim": "The BoxLite node's configured local guide ran successfully on Docker-hosted single-instance n8n 2.47.7 and self-hosted BoxLite v0.13.1; intentional download failure still reached box deletion before the summary failed.",
+      "status": "VERIFIED_RUNTIME",
+      "source_type": "local_staging_execution",
+      "url": "https://github.com/Ntrakiyski/n8n-dev/blob/main/nodes/n8n-nodes-boxlite/REVIEW.md",
+      "n8n_version": "2.47.7",
+      "checked_at": "2026-11-16",
+      "notes": "Local executions 63 (intentional failure cleanup) and 65 (success); private raw traces not committed. Package tests: 36 passed. Not evidence of Cloud writes, named-volume persistence, visual layout or the proposed Hermes integration. Edition/license tier not separately recorded. See workflow-examples/README.md."
+    },
+    {
       "id": "E-001",
       "claim": "n8n 2.47.7 is a non-prerelease release published on 2026-11-13 and tagged at commit d4dcb1b152a98fc31ea7c4ee6aecdc45c5c88063.",
       "status": "VERIFIED_SOURCE",
