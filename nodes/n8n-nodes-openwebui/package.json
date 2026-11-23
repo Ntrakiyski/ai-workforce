@@ -1,0 +1,19 @@
+{
+  "name": "n8n-nodes-openwebui",
+  "version": "0.1.0",
+  "description": "Open WebUI for n8n: start agent chats and post messages into existing chats.",
+  "license": "MIT",
+  "keywords": ["n8n-community-node-package", "n8n", "open-webui"],
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.js",
+    "test": "npm run build && node --test tests/*.test.js"
+  },
+  "files": ["dist"],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": ["dist/nodes/OpenWebUi/OpenWebUiApi.credentials.js"],
+    "nodes": ["dist/nodes/OpenWebUi/OpenWebUi.node.js"]
+  },
+  "peerDependencies": { "n8n-workflow": "*" },
+  "devDependencies": { "@types/node": "^22.10.2", "n8n-workflow": "^2.15.1", "typescript": "^5.7.2" }
+}
