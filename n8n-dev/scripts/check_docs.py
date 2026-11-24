@@ -11,14 +11,15 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
+INDEX = Path("n8n-dev") / "research" / "evidence-index.json"
 LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 ALLOWED = {"VERIFIED_RUNTIME", "VERIFIED_SOURCE", "PROPOSED_STANDARD", "SECONDARY_CLAIM", "UNVERIFIED"}
 
 
-def check_repository(root: Path = ROOT) -> list[str]:
+def check_repository(root: Path = ROOT, index_path: Path = INDEX) -> list[str]:
     issues: list[str] = []
-    markdown = sorted(root.rglob("*.md"))
+    markdown = sorted(p for p in root.rglob("*.md") if "node_modules" not in p.parts)
     for doc in markdown:
         for match in LINK_RE.finditer(doc.read_text(encoding="utf-8")):
             raw = match.group(1).strip()
@@ -30,9 +31,9 @@ def check_repository(root: Path = ROOT) -> list[str]:
                 continue
             if not (doc.parent / path).exists():
                 issues.append(f"{doc.relative_to(root)}: broken local link {raw}")
-    index = root / "research" / "evidence-index.json"
+    index = root / index_path
     if not index.exists():
-        issues.append("Missing research/evidence-index.json")
+        issues.append(f"Missing {index_path}")
         return issues
     try:
         data = json.loads(index.read_text(encoding="utf-8"))

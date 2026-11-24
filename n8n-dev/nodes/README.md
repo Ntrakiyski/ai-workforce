@@ -13,7 +13,7 @@ runtime use is not verified on the current server.
 
 ## Open WebUI
 
-The [existing Open WebUI node](n8n-nodes-openwebui/README.md) supports chat operations from n8n using the credential owner’s identity. The [broader node proposal](../docs/backlog/openwebui-community-node.md) tracks additional resources. For incoming WebUI channel events see the [OIX example](../examples/homelab-status/README.md).
+The [existing Open WebUI node](n8n-nodes-openwebui/README.md) supports chat operations from n8n using the credential owner’s identity. The [broader node proposal](../docs/backlog/openwebui-community-node.md) tracks additional resources. For incoming WebUI channel events see the [OIX example](../../openwebui-dev/examples/homelab-status/README.md).
 
 Each node package owns its dependencies and build. No package is automatically installed,
 published to npm or deployed by adding it here. Do not commit credentials or built archives.

@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/n8n-check-smoke.yml"
-      - "tests/fixtures/n8n-check-smoke/**"
+      - "n8n-dev/tests/fixtures/n8n-check-smoke/**"
   workflow_dispatch:
 
 permissions:
@@ -25,9 +25,9 @@ jobs:
         uses: blucca/n8n-check@61f6a2e50111f5a89b3131eba3ca5f2b548213d5
         with:
           n8n-version: '2.47.7'
-          workflow: tests/fixtures/n8n-check-smoke/healthy.workflow.json
-          case: tests/fixtures/n8n-check-smoke/eligible-rows.case.json
-          out: tests/fixtures/n8n-check-smoke/results-positive
+          workflow: n8n-dev/tests/fixtures/n8n-check-smoke/healthy.workflow.json
+          case: n8n-dev/tests/fixtures/n8n-check-smoke/eligible-rows.case.json
+          out: n8n-dev/tests/fixtures/n8n-check-smoke/results-positive
 
       - name: Negative control (deliberate regression; expected to fail)
         id: negative
@@ -35,9 +35,9 @@ jobs:
         uses: blucca/n8n-check@61f6a2e50111f5a89b3131eba3ca5f2b548213d5
         with:
           n8n-version: '2.47.7'
-          workflow: tests/fixtures/n8n-check-smoke/regression.workflow.json
-          case: tests/fixtures/n8n-check-smoke/eligible-rows.case.json
-          out: tests/fixtures/n8n-check-smoke/results-negative
+          workflow: n8n-dev/tests/fixtures/n8n-check-smoke/regression.workflow.json
+          case: n8n-dev/tests/fixtures/n8n-check-smoke/eligible-rows.case.json
+          out: n8n-dev/tests/fixtures/n8n-check-smoke/results-negative
 
       - name: Ensure regression is detected, not a setup error
         shell: bash
@@ -55,7 +55,7 @@ jobs:
           name: n8n-check-smoke-reports
           if-no-files-found: warn
           path: |
-            tests/fixtures/n8n-check-smoke/results-positive/report.json
-            tests/fixtures/n8n-check-smoke/results-positive/junit.xml
-            tests/fixtures/n8n-check-smoke/results-negative/report.json
-            tests/fixtures/n8n-check-smoke/results-negative/junit.xml
+            n8n-dev/tests/fixtures/n8n-check-smoke/results-positive/report.json
+            n8n-dev/tests/fixtures/n8n-check-smoke/results-positive/junit.xml
+            n8n-dev/tests/fixtures/n8n-check-smoke/results-negative/report.json
+            n8n-dev/tests/fixtures/n8n-check-smoke/results-negative/junit.xml

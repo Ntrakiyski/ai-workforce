@@ -4,24 +4,14 @@ on:
   push:
     paths:
       - "README.md"
-      - "AGENTS.md"
-      - "docs/**"
-      - "research/**"
-      - "skills/**"
-      - "examples/**"
-      - "scripts/check_docs.py"
-      - "tests/**"
+      - "n8n-dev/**"
+      - "openwebui-dev/**"
       - ".github/workflows/docs-integrity.yml"
   pull_request:
     paths:
       - "README.md"
-      - "AGENTS.md"
-      - "docs/**"
-      - "research/**"
-      - "skills/**"
-      - "examples/**"
-      - "scripts/check_docs.py"
-      - "tests/**"
+      - "n8n-dev/**"
+      - "openwebui-dev/**"
       - ".github/workflows/docs-integrity.yml"
   workflow_dispatch:
 
@@ -38,6 +28,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Verify links and research evidence
-        run: python3 scripts/check_docs.py
+        run: python3 n8n-dev/scripts/check_docs.py
       - name: Run documentation consistency tests
-        run: python3 -m unittest discover -s tests -v
+        run: python3 -m unittest discover -s n8n-dev/tests -v

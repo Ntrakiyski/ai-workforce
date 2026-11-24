@@ -59,7 +59,7 @@ This compatibility note concerns our existing official SDK foundation; it does *
 ### B — `n8n-check`: trial real-engine regression runner
 
 - **Use:** controlled item-transform tests, output assertions, request contract checks, JSON/JUnit CI evidence, negative mutations.
-- **Proposed smoke:** [synthetic scoring fixture](../../tests/fixtures/n8n-check-smoke/README.md) + [pinned GitHub workflow](../../.github/workflows/n8n-check-smoke.yml) where a healthy filter should return 2 IDs and an intentionally broken filter should fail.
+- **Proposed smoke:** [synthetic scoring fixture](../../tests/fixtures/n8n-check-smoke/README.md) + [pinned GitHub workflow](../../../.github/workflows/n8n-check-smoke.yml) where a healthy filter should return 2 IDs and an intentionally broken filter should fail.
 - **Gate:** runner must return pass (0) on healthy, regression (1) on broken, not setup error (2); report real version 2.47.7 and record upstream tool commit.
 - **Security:** Action pinned to immutable commit, checkout with no persisted credentials, read-only contents permission, fake inputs, no providers and Docker `--network none`. **Still untrusted third-party code:** the workflow action itself runs on the host runner during setup. Keep privileged tokens and secrets unavailable.
 - **Choice:** **PILOT-VALIDATED for this self-contained output-regression fixture**. Broader CI gate acceptance requires HTTP mock/retry, side-effect and subworkflow tests.

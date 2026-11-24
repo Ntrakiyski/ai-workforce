@@ -2,8 +2,10 @@ name: Homelab status integration
 on:
   pull_request:
     paths:
-      - "examples/homelab-status/**"
-      - "examples/openwebui-native/**"
+      - "openwebui-dev/examples/homelab-status/**"
+      - "n8n-dev/examples/homelab-status/**"
+      - "openwebui-dev/scripts/**"
+      - "openwebui-dev/examples/openwebui-native/**"
       - ".github/workflows/homelab-status.yml"
   workflow_dispatch:
 
@@ -22,8 +24,8 @@ jobs:
         run: |
           python3 -m venv "$RUNNER_TEMP/status-python"
           echo "$RUNNER_TEMP/status-python/bin" >> "$GITHUB_PATH"
-          "$RUNNER_TEMP/status-python/bin/pip" install -r examples/homelab-status/requirements.txt
-          "$RUNNER_TEMP/status-python/bin/python" -m unittest discover -s examples/homelab-status -v
-          python3 -m unittest discover -s examples/openwebui-native -v
+          "$RUNNER_TEMP/status-python/bin/pip" install -r openwebui-dev/examples/homelab-status/requirements.txt
+          "$RUNNER_TEMP/status-python/bin/python" -m unittest discover -s openwebui-dev/examples/homelab-status -v
+          python3 -m unittest discover -s openwebui-dev/examples/openwebui-native -v
       - name: Start disposable services and check the channel reply
-        run: bash examples/homelab-status/staging/run.sh
+        run: bash openwebui-dev/examples/homelab-status/staging/run.sh

@@ -24,7 +24,7 @@ docker run -d --name "$webui_container" --network host \
   "$webui_image"
 
 jq '[. | .id="homelabStatus" | (.nodes[] | select(.type=="n8n-nodes-base.webhook")).credentials={httpHeaderAuth:{id:"statusCredential",name:"Homelab status"}}]' \
-  ../n8n/workflow.json > "$work/workflow.json"
+  ../../../../n8n-dev/examples/homelab-status/workflow.json > "$work/workflow.json"
 jq -n '[{id:"statusCredential",name:"Homelab status",type:"httpHeaderAuth",data:{name:"X-Status-Key",value:env.N8N_STATUS_KEY}}]' > "$work/credential.json"
 # The image runs as uid 1000. Mount only these generated fixture files.
 sudo chown -R 1000:1000 "$work"
@@ -55,5 +55,5 @@ if [[ "$status" != 401 && "$status" != 403 ]]; then
   docker logs --tail 25 "$n8n_container" >&2
   exit 1
 fi
-python ../../../skills/openwebui-dev/scripts/probe.py http://127.0.0.1:8080
+python ../../../scripts/probe.py http://127.0.0.1:8080
 python check_channel.py

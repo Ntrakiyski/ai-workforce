@@ -22,14 +22,14 @@ class CheckDocsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             self.setup_repo(root)
-            self.assertEqual([], check_repository(root))
+            self.assertEqual([], check_repository(root, Path('research') / 'evidence-index.json'))
 
     def test_rejects_broken_link(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             self.setup_repo(root)
             (root / 'README.md').write_text('[broken](missing.md)\n', encoding='utf-8')
-            self.assertTrue(any('broken local link' in x for x in check_repository(root)))
+            self.assertTrue(any('broken local link' in x for x in check_repository(root, Path('research') / 'evidence-index.json')))
 
     def test_rejects_duplicate_evidence_ids(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -39,7 +39,7 @@ class CheckDocsTests(unittest.TestCase):
             data = json.loads(index.read_text(encoding='utf-8'))
             data['findings'].append(dict(data['findings'][0]))
             index.write_text(json.dumps(data), encoding='utf-8')
-            self.assertTrue(any('Duplicate' in x for x in check_repository(root)))
+            self.assertTrue(any('Duplicate' in x for x in check_repository(root, Path('research') / 'evidence-index.json')))
 
 
 if __name__ == '__main__':
