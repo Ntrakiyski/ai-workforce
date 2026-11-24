@@ -41,6 +41,19 @@ docker run -d --name "$n8n_container" "${n8n_args[@]}" -p 127.0.0.1:5678:5678 "$
 for url in http://127.0.0.1:8080/health http://127.0.0.1:5678/healthz/readiness; do
   curl -fsS --retry 60 --retry-all-errors --retry-delay 2 --max-time 4 "$url" >/dev/null
 done
-status="$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{}' http://127.0.0.1:5678/webhook/homelab-status)"
-[[ "$status" == 401 || "$status" == 403 ]]
+# Database readiness can precede workflow activation on a fresh instance.
+for attempt in {1..30}; do
+  status="$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{}' http://127.0.0.1:5678/webhook/homelab-status)"
+  case "$status" in
+    401|403) break ;;
+    404|503) sleep 1 ;;
+    *) echo "Unexpected unauthenticated webhook response: HTTP $status" >&2; exit 1 ;;
+  esac
+done
+if [[ "$status" != 401 && "$status" != 403 ]]; then
+  echo "Webhook did not become available: HTTP $status" >&2
+  docker logs --tail 25 "$n8n_container" >&2
+  exit 1
+fi
+python ../../../skills/openwebui-dev/scripts/probe.py http://127.0.0.1:8080
 python check_channel.py

@@ -27,8 +27,11 @@ def call(url, token=None, payload=None):
     if payload is not None:
         headers["Content-Type"] = "application/json"
         body = json.dumps(payload).encode()
-    with urlopen(Request(url, data=body, headers=headers), timeout=15) as response:
-        return json.load(response)
+    try:
+        with urlopen(Request(url, data=body, headers=headers), timeout=15) as response:
+            return json.load(response)
+    except HTTPError as error:
+        raise RuntimeError(f"HTTP {error.code} from {url}") from error
 
 
 @contextmanager
@@ -148,7 +151,9 @@ def main():
             mention = {"content": f"<@A:{app['id']}|Homelab Status> status?"}
             denied = call(channel_api + "/messages/post", admin["token"], mention)
             source = call(channel_api + "/messages/post", member["token"], mention)
-            for _ in range(80):
+            observed = None
+            observe_until = None
+            for _ in range(100):
                 messages = call(channel_api + "/messages", member["token"])
                 for msg in messages:
                     if msg["app_id"] != app["id"]:
@@ -160,11 +165,16 @@ def main():
                             raise RuntimeError(
                                 "Readiness check returned an unexpected report"
                             )
-                        print(
-                            "Verified ordinary member received the app's n8n readiness reply",
-                            f"(source {source['id']}, reply {msg['id']}).",
-                        )
-                        return
+                        observed = msg["id"]
+                        if observe_until is None:
+                            observe_until = time.monotonic() + 5
+                if observe_until is not None and time.monotonic() >= observe_until:
+                    print(
+                        "Verified the ordinary member's readiness reply",
+                        f"(source {source['id']}, reply {observed}).",
+                        "No reply to the unlisted actor in the observation window.",
+                    )
+                    return
                 time.sleep(0.5)
             raise RuntimeError("No app reply linked to the ordinary member's message")
 
