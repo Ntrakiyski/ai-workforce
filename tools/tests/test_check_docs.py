@@ -5,8 +5,8 @@ import unittest
 from pathlib import Path
 
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from check_docs import check_repository
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from check_docs import check_repository, check_structure, REQUIRED
 
 
 class CheckDocsTests(unittest.TestCase):
@@ -40,6 +40,19 @@ class CheckDocsTests(unittest.TestCase):
             data['findings'].append(dict(data['findings'][0]))
             index.write_text(json.dumps(data), encoding='utf-8')
             self.assertTrue(any('Duplicate' in x for x in check_repository(root, Path('research') / 'evidence-index.json')))
+
+    def test_structure_reports_missing_template_items(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'demo-dev').mkdir()
+            self.assertEqual(len(REQUIRED), len(check_structure(root)))
+
+    def test_template_satisfies_structure(self):
+        repo = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory() as folder:
+            import shutil
+            shutil.copytree(repo / '_template', Path(folder) / 'demo-dev')
+            self.assertEqual([], check_structure(Path(folder)))
 
 
 if __name__ == '__main__':

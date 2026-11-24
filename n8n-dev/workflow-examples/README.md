@@ -36,7 +36,7 @@ From the repository root:
 npm ci --prefix nodes/n8n-nodes-boxlite
 npm test --prefix nodes/n8n-nodes-boxlite
 cp nodes/n8n-nodes-boxlite/examples/BoxLite-Guide.json workflow-examples/BoxLite-Guide.json
-python3 scripts/check_docs.py
+python3 tools/check_docs.py
 ```
 
 The generator is `nodes/n8n-nodes-boxlite/scripts/build-guide.js`. Its package-local copy is

@@ -10,7 +10,7 @@ Authorized member mentions app → Open WebUI verifies interaction → OIX check
 ## Install on staging
 
 1. Use Python 3.11+ in an isolated environment and install `requirements.txt` with `python -m pip install -r requirements.txt`. The app targets OIX 0.8.0. Confirm the staging Open WebUI has Apps, Channels and the OIX socket transport. [Pinned OIX setup and compatibility notes](https://github.com/open-webui/oix/blob/6134c423f553aa9886f2de6ad822f46fb51239e0/README.md).
-2. Configure the [n8n workflow](../../../n8n-dev/examples/homelab-status) on isolated staging. Keep its webhook header credential and the OIX app credentials separate.
+2. Configure the [n8n workflow](../n8n) on isolated staging. Keep its webhook header credential and the OIX app credentials separate.
 3. Provision the app's persistent `API_KEY` and Ed25519 signing key using the pinned OIX setup guide. Provide the key's file path as `APP_PRIVATE_KEY_FILE`. Connect Open WebUI to the app's reachable `/events` URL, with WebSocket support. Grant only the requested mention-read and message-write scopes and invite the app to the intended private channel.
 4. To identify the staging installation before enabling checks, start the app with `STATUS_DISCOVER_IDS=1 python app.py` for the connection step. Mention the app as each intended requester. This mode prints the verified installation, channel and user IDs to the operator's console and never contacts n8n. Confirm these IDs belong to the intended staging members and channel before adding them. Discovery does not enroll anyone.
 5. Stop discovery. Set the values below in the app process environment and run `python app.py`. OIX does not load a dotenv file automatically.

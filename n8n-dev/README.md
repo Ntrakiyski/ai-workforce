@@ -140,7 +140,7 @@ n8n-engineering-system/
   integrations/                   Reserved for connector-specific guidance
   validators/                     Reserved for the n8n validation implementation
   skills/                         Reserved for installable agent skills
-  scripts/check_docs.py           Local documentation consistency check
+  (../tools/check_docs.py)        Repo-wide documentation consistency check
   tests/                          Documentation-check tests; n8n runtime tests later
   artifacts/                      Empty until generated and verified
 ```
@@ -217,7 +217,7 @@ The research now identifies **official n8n skills**, a **typed Workflow SDK**, n
 ## Verification
 
 ```bash
-python3 scripts/check_docs.py
+python3 tools/check_docs.py
 python3 -m unittest discover -s tests -v
 ```
 

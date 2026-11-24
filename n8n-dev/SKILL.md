@@ -10,4 +10,4 @@ description: Build, inspect, and validate n8n workflows and custom nodes. Use fo
 3. Keep the workflow, endpoint contract, and credentials separate. For WebUI channel requests, hand installation, membership, event verification, and user-facing replies to [openwebui-dev](../openwebui-dev/SKILL.md). Agree on success and failure payloads before changing either side.
 4. Inspect the actual graph, run success and denial cases with synthetic inputs, and record exactly which artifact, version, and execution path passed. Test in isolated staging before requesting promotion. Document rollback and any checks still open.
 
-See the [joint status example](../openwebui-dev/examples/homelab-status/README.md) for the read-only webhook boundary.
+See the [joint status example](../joint/homelab-status/openwebui/README.md) for the read-only webhook boundary.

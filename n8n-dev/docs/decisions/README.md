@@ -14,4 +14,4 @@ The four-tool evaluation and safety boundaries are recorded in [ADR-0005](0005-t
 
 **Adaptive agent direction:** [ADR-0006: Hermes in BoxLite as a candidate external task runner](0006-hermes-adaptive-agent-runtime.md). The earlier proposal to use BoxLite to host the n8n development environment was reverted and is not being reinstated.
 
-[ADR-0007](0007-platform-specialists.md) defines the n8n and Open WebUI specialists and their shared integration boundary.
+[ADR-0007](../../../docs/decisions/0007-platform-specialists.md) defines the n8n and Open WebUI specialists and their shared integration boundary.

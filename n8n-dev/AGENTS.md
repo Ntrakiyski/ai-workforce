@@ -89,5 +89,5 @@ Read [Adaptive execution architecture](docs/architecture/adaptive-execution-herm
 - Update `docs/research/source-registry.md` and `research/evidence-index.json` for new facts.
 - Put engineering rules under `docs/standards/`, not in raw source notes.
 - Add significant trade-offs as ADRs under `docs/decisions/`.
-- Run `python3 scripts/check_docs.py` before submitting documentation changes.
+- Run `python3 tools/check_docs.py` from the repo root before submitting documentation changes.
 - No full skill installation or automatic production deployment until required quality gates exist.
