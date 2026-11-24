@@ -13,7 +13,7 @@ Start with the interaction the user needs. Identify who initiates it, what they 
 | Expose a model-like service, transform chat input or output, add a clickable action, subscribe to server events, or give a model a callable tool | [Native extensions](references/extensions.md) |
 | Connect a separately hosted app to channels and deliver results there | [OIX apps](references/oix-apps.md) |
 
-For workflows calling WebUI chat, inspect this repository's existing `nodes/n8n-nodes-openwebui/` adapter. For WebUI calling n8n, define the request, response, authentication and failure contract with the n8n specialist. Each side should know the audience and target operation without using prompt text as proof of authority.
+For workflows calling WebUI chat, inspect this repository's existing `n8n-dev/nodes/n8n-nodes-openwebui/` adapter. For WebUI calling n8n, define the request, response, authentication and failure contract with the n8n specialist. Each side should know the audience and target operation without using prompt text as proof of authority.
 
 ## Before changing an instance
 

@@ -1,6 +1,6 @@
 # AI Workforce skills
 
-Load [n8n-dev](n8n-dev/SKILL.md) or [openwebui-dev](openwebui-dev/SKILL.md) from the repository checkout. The relative links in the skills resolve against that checkout.
+Load [n8n-dev](../SKILL.md) or [openwebui-dev](../../openwebui-dev/SKILL.md) from the repository checkout. The relative links in the skills resolve against that checkout.
 
 ## n8n foundation
 
@@ -29,7 +29,7 @@ The official README documents Codex >= 0.142.0 for its plugin route. Authenticat
 
 Before workflow design, generation or MCP edits, load the meta skill and the relevant capability skill; inspect the target instance version. Add our custom constraints **on top**: tenant-aware system model, safe approvals, versioned behavior mapping and stronger staging/release gates.
 
-The [n8n specialist](n8n-dev/SKILL.md) routes agents to these specifications, validators, and upstream skills.
+The [n8n specialist](../SKILL.md) routes agents to these specifications, validators, and upstream skills.
 
 ## Status
 

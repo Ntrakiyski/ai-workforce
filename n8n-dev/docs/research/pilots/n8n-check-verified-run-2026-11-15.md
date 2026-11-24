@@ -42,7 +42,7 @@ The CI step for the deliberately broken workflow is configured `continue-on-erro
 
 1. [Git commit containing the exact test inputs and Action](https://github.com/Ntrakiyski/n8n-dev/commit/947e1aeaee2fb2caa5c828746e9cb880551b50de).
 2. [Healthy export](../../../tests/fixtures/n8n-check-smoke/healthy.workflow.json), [defective mutation](../../../tests/fixtures/n8n-check-smoke/regression.workflow.json), [expected-output case](../../../tests/fixtures/n8n-check-smoke/eligible-rows.case.json).
-3. [Pinned GitHub Actions workflow](../../../.github/workflows/n8n-check-smoke.yml) at the commit above.
+3. [Pinned GitHub Actions workflow](../../../../.github/workflows/n8n-check-smoke.yml) at the commit above.
 4. [Completed run 43649002040](https://github.com/Ntrakiyski/n8n-dev/actions/runs/43649002040) and archived positive/negative `report.json` and `junit.xml` files.
 5. [Machine-readable condensed verification](../../../research/runtime-evidence/n8n-check-2026-11-15.json) generated from the archived reports.
 
