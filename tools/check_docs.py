@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 INDEX = Path("n8n-dev") / "research" / "evidence-index.json"
 LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 ALLOWED = {"VERIFIED_RUNTIME", "VERIFIED_SOURCE", "PROPOSED_STANDARD", "SECONDARY_CLAIM", "UNVERIFIED"}
@@ -59,8 +59,25 @@ def check_repository(root: Path = ROOT, index_path: Path = INDEX) -> list[str]:
     return issues
 
 
+REQUIRED = ["SKILL.md", "AGENTS.md", "README.md", "CHANGELOG.md", "references", "docs/roadmap.md",
+            "docs/decisions", "docs/research/evidence-index.json", "examples", "tests"]
+
+
+def check_structure(root: Path = ROOT) -> list[str]:
+    """Report template gaps for every <platform>-dev specialist (see _template/)."""
+    gaps: list[str] = []
+    for spec in sorted(p for p in root.glob("*-dev") if p.is_dir()):
+        for item in REQUIRED:
+            if not (spec / item).exists():
+                gaps.append(f"{spec.name}: missing {item}")
+    return gaps
+
+
 def main() -> int:
-    issues = check_repository()
+    strict = "--strict" in sys.argv
+    for gap in check_structure():
+        print("ERROR:" if strict else "WARN:", gap)
+    issues = check_repository() + (check_structure() if strict else [])
     if issues:
         for issue in issues:
             print("ERROR:", issue)

@@ -6,12 +6,22 @@ on:
       - "README.md"
       - "n8n-dev/**"
       - "openwebui-dev/**"
+      - "joint/**"
+      - "docs/**"
+      - "tools/**"
+      - "_template/**"
+      - "CONTRIBUTING.md"
       - ".github/workflows/docs-integrity.yml"
   pull_request:
     paths:
       - "README.md"
       - "n8n-dev/**"
       - "openwebui-dev/**"
+      - "joint/**"
+      - "docs/**"
+      - "tools/**"
+      - "_template/**"
+      - "CONTRIBUTING.md"
       - ".github/workflows/docs-integrity.yml"
   workflow_dispatch:
 
@@ -28,6 +38,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Verify links and research evidence
-        run: python3 n8n-dev/scripts/check_docs.py
+        run: python3 tools/check_docs.py
       - name: Run documentation consistency tests
-        run: python3 -m unittest discover -s n8n-dev/tests -v
+        run: python3 -m unittest discover -s tools/tests -v

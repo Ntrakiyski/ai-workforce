@@ -11,4 +11,4 @@ Source baseline OIX-APP-001, VERIFIED_SOURCE for OIX 0.8.0. Python 3.11+ and an 
 
 Use a dedicated staging channel with an allowed user and a restricted user. Exercise a matching trigger, an unrelated message, the restricted user, and dependency failure. Confirm the correct reply channel/thread, bounded response time and absence of a downstream call for rejected triggers. Remove the channel invitation or revoke the grant and verify subsequent access stops. Test a second installation if the service is shared. For rollback disconnect the test installation and restore prior configuration.
 
-For n8n-backed status requests, the repository example lives under `openwebui-dev/examples/homelab-status/` (n8n side: `n8n-dev/examples/homelab-status/`). Read its actual command, scope and allowlist before testing. Keep returned status distinguishable from transport or authorization failures.
+For n8n-backed status requests, the repository example lives under `joint/homelab-status/`. Read its actual command, scope and allowlist before testing. Keep returned status distinguishable from transport or authorization failures.

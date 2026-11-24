@@ -17,6 +17,6 @@ Create a new ADR, preserve prior evidence and fixtures, diff changed source/meta
 ## Local checks
 
 ```bash
-python3 scripts/check_docs.py
-python3 -m unittest discover -s tests -v
+python3 ../tools/check_docs.py
+python3 -m unittest discover -s ../tools/tests -v
 ```
