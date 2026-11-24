@@ -1,0 +1,100 @@
+{
+  "name": "Homelab status — n8n readiness",
+  "nodes": [
+    {
+      "id": "02eb5bfa-936e-4cee-88a9-37f992239ebe",
+      "name": "Authenticate status request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "homelab-status",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "b17bebfa-897a-485c-9ec8-9650914dd732"
+    },
+    {
+      "id": "f86f67d5-4385-4273-a210-c4245abe4558",
+      "name": "Read n8n readiness",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        256,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:5678/healthz/readiness",
+        "options": {
+          "timeout": 3000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "e50bebf1-a811-454f-bb94-9f8e93fadd2f",
+      "name": "Return service status",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        512,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { service: 'n8n', status: $json.statusCode === 200 && $json.body?.status === 'ok' ? 'ok' : 'unavailable' } }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Authenticate status request": {
+      "main": [
+        [
+          {
+            "node": "Read n8n readiness",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read n8n readiness": {
+      "main": [
+        [
+          {
+            "node": "Return service status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
+  },
+  "active": false
+}

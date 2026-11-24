@@ -1,6 +1,6 @@
 # Idea: n8n community nodes for Open WebUI
 
-**Status:** Future integration idea, recorded 22 November 2026. **No package or implementation exists yet.**
+**Status:** Future integration idea, recorded 22 November 2026. The [existing chat node](../../nodes/n8n-nodes-openwebui/README.md) implements a narrower set of operations. The additional resources below remain proposed.
 
 ## Goal
 

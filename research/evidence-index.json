@@ -454,6 +454,50 @@
       "source_commit": null,
       "checked_at": "2026-11-15",
       "notes": "Summarized supplied transcript, not independent certification of current n8n/Hermes product controls. See docs/standards/agent-production-controls.md."
+    },
+    {
+      "id": "OWUI-OPS-001",
+      "claim": "The v0.13.4 backend mounts dedicated routers for apps, channels, models and Functions.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_source",
+      "url": "https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/main.py#L838-L857",
+      "n8n_version": null,
+      "source_commit": "0666e59d26a4d056e0bacee41742486badd71cf8",
+      "checked_at": "2026-11-24",
+      "notes": "Pinned specialist research baseline."
+    },
+    {
+      "id": "OWUI-EXT-001",
+      "claim": "The native Python Function loader recognizes Pipe, Filter, Action and Event classes.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_source",
+      "url": "https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/utils/plugin.py#L254-L304",
+      "n8n_version": null,
+      "source_commit": "0666e59d26a4d056e0bacee41742486badd71cf8",
+      "checked_at": "2026-11-24",
+      "notes": "Pinned specialist research baseline."
+    },
+    {
+      "id": "OWUI-AGENTS-001",
+      "claim": "Agent model discovery needs a terminal identity and a compatible terminal agent catalog.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_source",
+      "url": "https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/utils/agents/discovery.py#L36-L83",
+      "n8n_version": null,
+      "source_commit": "0666e59d26a4d056e0bacee41742486badd71cf8",
+      "checked_at": "2026-11-24",
+      "notes": "Pinned specialist research baseline."
+    },
+    {
+      "id": "OIX-APP-001",
+      "claim": "OIX authenticates channel interactions and binds the event client to the originating installation.",
+      "status": "VERIFIED_SOURCE",
+      "source_type": "official_source",
+      "url": "https://github.com/open-webui/oix/blob/6134c423f553aa9886f2de6ad822f46fb51239e0/README.md",
+      "n8n_version": null,
+      "source_commit": "6134c423f553aa9886f2de6ad822f46fb51239e0",
+      "checked_at": "2026-11-24",
+      "notes": "Pinned specialist research baseline."
     }
   ]
 }

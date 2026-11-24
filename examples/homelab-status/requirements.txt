@@ -1,0 +1,3 @@
+# SDK tag v0.8.0; see the pinned upstream source in README.md.
+oix==0.8.0
+aiohttp>=3.12,<4

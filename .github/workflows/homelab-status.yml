@@ -1,0 +1,29 @@
+name: Homelab status integration
+on:
+  pull_request:
+    paths:
+      - "examples/homelab-status/**"
+      - "examples/openwebui-native/**"
+      - ".github/workflows/homelab-status.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install example dependencies and run component tests
+        run: |
+          python3 -m venv "$RUNNER_TEMP/status-python"
+          echo "$RUNNER_TEMP/status-python/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/status-python/bin/pip" install -r examples/homelab-status/requirements.txt
+          "$RUNNER_TEMP/status-python/bin/python" -m unittest discover -s examples/homelab-status -v
+          python3 -m unittest discover -s examples/openwebui-native -v
+      - name: Start disposable services and check the channel reply
+        run: bash examples/homelab-status/staging/run.sh
