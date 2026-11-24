@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-24 - AI Workforce
+
+- Introduced n8n and Open WebUI specialist entry points.
+- Added a shared channel-to-n8n readiness example and native Open WebUI extension fixtures.
+
 ## 2026-11-14 - Documentation baseline
 
 - Created the repository folder and navigation.

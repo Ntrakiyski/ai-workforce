@@ -1,4 +1,15 @@
-# n8n Engineering System
+# AI Workforce
+
+Platform specialists for agents building and operating n8n and Open WebUI. Start at the skill for the platform you are changing.
+
+| Specialist | Responsibilities |
+| --- | --- |
+| [n8n-dev](skills/n8n-dev/SKILL.md) | Build workflows and custom nodes, verify their contracts, and own business logic and service credentials. |
+| [openwebui-dev](skills/openwebui-dev/SKILL.md) | Operate Open WebUI, configure models and providers, build native extensions and OIX apps, and verify the ordinary user's experience. |
+
+**First joint example.** The [homelab status app](examples/homelab-status/README.md) answers a channel request with n8n readiness. The [native extension examples](examples/openwebui-native/README.md) exercise the in-process hooks independently. These are repository skills and examples that an operator such as Hermes can load.
+
+## n8n Engineering System
 
 **An n8n-native systems framework:** treat n8n as the visual language of application behavior, with agents assembling reusable workflows, integrations, state, and interfaces rather than starting each system from conventional application code.
 

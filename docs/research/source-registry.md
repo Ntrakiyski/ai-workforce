@@ -105,3 +105,10 @@ See [the experimental integration plan](../roadmap/tooling-integration-pilots.md
 | P1 | [Video: AI Agent Best Practices for Production (n8n)](https://www.youtube.com/watch?v=RvOErUwZq1g) | Project-owner-supplied transcript describes six production safeguards: decomposition, output validation, bounds, permissions, traces and approvals | Training content is not evidence that shown controls are available on the pinned target version |
 
 Engineering synthesis: [Hermes adaptive runtime](../architecture/adaptive-execution-hermes-boxlite.md), [production agent standard](../standards/agent-production-controls.md), [ADR-0006](../decisions/0006-hermes-adaptive-agent-runtime.md). All runtime and integration operations remain untested.
+
+## Open WebUI and OIX · 24 November 2026
+
+- The v0.13.4 backend mounts dedicated routers for apps, channels, models and Functions. [OWUI-OPS-001](https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/main.py#L838-L857)
+- The native Python Function loader recognizes Pipe, Filter, Action and Event classes. [OWUI-EXT-001](https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/utils/plugin.py#L254-L304)
+- Agent model discovery needs a terminal identity and a compatible terminal agent catalog. [OWUI-AGENTS-001](https://github.com/open-webui/open-webui/blob/0666e59d26a4d056e0bacee41742486badd71cf8/backend/open_webui/utils/agents/discovery.py#L36-L83)
+- OIX authenticates channel interactions and binds the event client to the originating installation. [OIX-APP-001](https://github.com/open-webui/oix/blob/6134c423f553aa9886f2de6ad822f46fb51239e0/README.md)

@@ -1,6 +1,6 @@
 # Instructions for Coding and Research Agents
 
-You are contributing to the `n8n-engineering-system` repository.
+Select [n8n-dev](skills/n8n-dev/SKILL.md) for workflows and custom nodes, or [openwebui-dev](skills/openwebui-dev/SKILL.md) for WebUI operations and extensions. Load both for changes spanning the two systems. Start with the version and effective permissions of the component being changed. The n8n-specific procedures below apply to the n8n side.
 
 **Read first:** [Executive Decision Record](docs/strategy/executive-decisions-2026-11-15.md). This consolidates the accepted product choices in ADR-0002/0003/0004 and separates those **decisions** from **benchmarks and tools still unimplemented**. Do not reopen an accepted direction merely to reinvent existing SDK/skill capabilities, but test assumptions that remain explicitly open.
 

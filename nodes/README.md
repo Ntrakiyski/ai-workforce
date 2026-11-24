@@ -11,9 +11,9 @@ runtime use is not verified on the current server.
 - [Review, fixes and local runtime evidence](n8n-nodes-boxlite/REVIEW.md)
 - [Importable workflow examples](../workflow-examples/README.md)
 
-## Proposed: Open WebUI
+## Open WebUI
 
-[Open WebUI native node idea and delivery gates](../docs/backlog/openwebui-community-node.md) records the future `n8n-nodes-gcc-openwebui` package. Use the BoxLite package as the implementation reference and a version-matched Open WebUI OpenAPI schema as the API source. **No Open WebUI node has been built or installed.** Employee-facing Open WebUI integration continues through native Pipes and Filters.
+The [existing Open WebUI node](n8n-nodes-openwebui/README.md) supports chat operations from n8n using the credential owner’s identity. The [broader node proposal](../docs/backlog/openwebui-community-node.md) tracks additional resources. For incoming WebUI channel events see the [OIX example](../examples/homelab-status/README.md).
 
 Each node package owns its dependencies and build. No package is automatically installed,
 published to npm or deployed by adding it here. Do not commit credentials or built archives.
