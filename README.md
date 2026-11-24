@@ -6,6 +6,9 @@ Platform specialists that agents load to build and operate our AI platform. Each
 | --- | --- |
 | [n8n-dev](n8n-dev/SKILL.md) | Build workflows and custom nodes, verify their contracts, own business logic and service credentials. |
 | [openwebui-dev](openwebui-dev/SKILL.md) | Operate Open WebUI, configure models, providers and agents, build native Functions/Tools and OIX apps, verify the ordinary user's experience. |
+| litellm-dev | Planned. |
+
+Other tools we use: [tool-stack](tool-stack/README.md).
 
 ## Where this repo fits
 
